@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "desktop_menus",
+  "info": {
+    "singularName": "desktop-menu",
+    "pluralName": "desktop-menus",
+    "displayName": "desktop menu",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "item": {
+      "type": "component",
+      "repeatable": true,
+      "component": "menu.header-nav"
+    }
+  }
+}

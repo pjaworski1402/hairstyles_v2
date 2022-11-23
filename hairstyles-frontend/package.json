@@ -1,0 +1,38 @@
+{
+  "name": "hairstyles-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@meilisearch/instant-meilisearch": "^0.8.2",
+    "@reduxjs/toolkit": "^1.9.0",
+    "@stripe/stripe-js": "^1.44.1",
+    "cookies-next": "^2.1.1",
+    "gsap": "^3.11.1",
+    "moment": "^2.29.4",
+    "next": "12.3.0",
+    "next-redux-wrapper": "^8.0.0",
+    "nprogress": "^0.2.0",
+    "qs": "^6.11.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-markdown": "^8.0.3",
+    "react-moment": "^1.1.2",
+    "react-redux": "^8.0.2",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-styled-components": "^2.0.7",
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.0"
+  }
+}

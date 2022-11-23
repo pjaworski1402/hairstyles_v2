@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_seo_default_seos",
+  "info": {
+    "displayName": "defaultSeo"
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 20
+    },
+    "metaDescription": {
+      "type": "text",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 150
+    },
+    "shareImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

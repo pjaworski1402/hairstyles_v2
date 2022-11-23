@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_menu_header_navs",
+  "info": {
+    "displayName": "HeaderNav",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "path": {
+      "type": "string",
+      "required": true
+    },
+    "important": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

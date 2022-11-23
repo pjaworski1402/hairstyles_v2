@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_menu_menu_items",
+  "info": {
+    "displayName": "MenuItems",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "minLength": 3,
+      "maxLength": 12
+    },
+    "path": {
+      "type": "string",
+      "required": false,
+      "regex": "^(\\/[^\\/]+){0,3}\\/?$"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "dropDown": {
+      "type": "component",
+      "repeatable": false,
+      "component": "menu.drop-down"
+    }
+  }
+}

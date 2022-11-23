@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "slider_mobiles",
+  "info": {
+    "singularName": "slider-mobile",
+    "pluralName": "slider-mobiles",
+    "displayName": "slider mobile"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slider": {
+      "type": "component",
+      "repeatable": true,
+      "component": "slider.slider"
+    }
+  }
+}

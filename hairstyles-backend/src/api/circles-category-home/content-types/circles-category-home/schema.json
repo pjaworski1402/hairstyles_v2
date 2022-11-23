@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "circles_category_homes",
+  "info": {
+    "singularName": "circles-category-home",
+    "pluralName": "circles-category-homes",
+    "displayName": "circles category home"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "category": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shortcuts.categories"
+    }
+  }
+}

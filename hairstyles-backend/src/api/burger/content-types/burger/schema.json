@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "burgers",
+  "info": {
+    "singularName": "burger",
+    "pluralName": "burgers",
+    "displayName": "burger",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "menuItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "menu.menu-items"
+    }
+  }
+}

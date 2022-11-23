@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_menu_drop_downs",
+  "info": {
+    "displayName": "dropDown",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "getCategories": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}
