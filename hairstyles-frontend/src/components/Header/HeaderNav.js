@@ -27,7 +27,6 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
   const { item } = desktopMenu.attributes;
   const cart = useSelector((state) => state.cart);
   const [lengthCart, setLengthCart] = useState(0);
-  // console.log(item);
   const handleClickMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
@@ -37,7 +36,7 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
 
   return (
     <Container>
-      <Wrapper>
+      <Wrapper className="container">
         <Logo>
           <Link href={"/"}>
             <a>

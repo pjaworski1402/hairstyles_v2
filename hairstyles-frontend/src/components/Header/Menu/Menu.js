@@ -43,7 +43,7 @@ const Menu = () => {
   // console.log(menuItems);
   return (
     <Container>
-      <Wrapper ref={wrapperRef}>
+      <Wrapper ref={wrapperRef} className="container">
         {menuItems.map((element) => {
           const icon = getStrapiMedia(element.icon);
           const getCategories = element.dropDown?.getCategories || false;

@@ -5,8 +5,18 @@ export const Container = styled.div`
   display: flex;
   gap:20px;
   border-bottom: 1px solid #F3F4F6;
+  @media ${device.tablet} {
+    border: 1px solid #F3F4F6;
+    padding-right: 16px;
+    border-radius: 6px;
+  }
   :last-child{
     border:none;
+    @media ${device.tablet} {
+      border: 1px solid #F3F4F6;
+      padding-right: 16px;
+      border-radius: 6px;
+  }
   }
   .thumbnail{
     width: 120px;

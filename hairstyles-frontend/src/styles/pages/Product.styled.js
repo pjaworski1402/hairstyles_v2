@@ -52,22 +52,20 @@ export const DesktopSlider = styled.div`
     display:block;
     ${sliderStyle}
     margin-right: 40px;
-    max-width: 500px;
-    width: 500px;
+    flex-basis: 50%;
+    max-width: 50%;
 }
 `;
 export const DesktopContentOffer = styled.div`
   display: none;
   @media ${device.tablet} {
-    max-width: 1000px;
-    width: 1000px;
     display: flex;
     flex-wrap: wrap;
     .headerWrapper{
       width: 100%;
       display: flex;
       justify-content: end;
-      margin:24px 0;
+      margin: 24px 0;
       .shareButton{
         display: flex;
         align-items: center;
@@ -81,7 +79,7 @@ export const DesktopContentOffer = styled.div`
       flex-direction: column;
       gap: 12px;
       height: 90%;
-      flex-basis: calc(100% - 500px - 40px);
+      flex-basis: calc(50% - 40px);
       .title{
         font-size: 32px;
       }
@@ -130,15 +128,16 @@ export const DesktopContentOffer = styled.div`
         }
       }
       .bottomWrapper{
-        width: 100%;
         background-color: var(--primary);
         margin-top: auto;
+        margin-bottom: 12px;
+        width: 100%;
         .addToCartButton{
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 6px;
-          border-radius: 6px;
+          border-radius: 10px;
           background-color: var(--contrast);
           width: 100%;
           color:var(--primary);

@@ -15,6 +15,7 @@
     "@strapi/plugin-users-permissions": "4.3.8",
     "@strapi/strapi": "4.3.8",
     "mysql": "2.18.1",
+    "nodemailer": "^6.9.0",
     "strapi-plugin-comments": "^2.1.8",
     "strapi-plugin-meilisearch": "^0.7.1",
     "strapi-plugin-todo": "^0.0.9",

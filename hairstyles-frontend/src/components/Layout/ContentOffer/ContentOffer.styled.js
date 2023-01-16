@@ -3,7 +3,7 @@ import { device } from '../../../styles/device';
 
 export const Container = styled.div`
   width: 100%;
-  padding: 0 24px;
+  /* padding: 0 24px; */
   background-color: var(--primary);
   position:relative;
   z-index: 1;

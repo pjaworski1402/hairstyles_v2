@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { device } from "./device"
 
 const GlobalStyle = createGlobalStyle`
 html {
@@ -18,27 +19,24 @@ html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-body {
   font-family: 'Lato', sans-serif;
 }
 
+body {
+}
+
 img {
-  /* height: auto;
-  max-width: 100%;
-   */
-  /* user-select: none; */
+
 }
 
 button {
-  color: inherit; /* By default, buttons don't inherit the font colour, this is a useful default to override */
+  color: inherit; 
   background: none;
   border:none;
 }
 
 a, button {
-  touch-action: manipulation; /* Element doesn't want double-tap on mobile to zoom */
+  touch-action: manipulation;
   cursor: pointer;
 }
 
@@ -48,21 +46,32 @@ a {
 }
 
 svg {
-  /* Make the SVGs fit the parent container by default */
-  /* height: 100%;
-  width: 100%; */
-  
-  /* Optional - make the SVG's fill be the same as the inherited color */
-  /* fill: currentColor; */
-  
-  /* Prevent the SVG from altering cursor interaction */
-  /* pointer-events: none; */
+
 }
 
 iframe, video {
-  /* Make iframes & videos fit the parent container by default */
   height: 100%;
   width: 100%
+}
+
+.container{
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  @media ${device.tablet} {
+    max-width: 720px;
+  }
+  @media ${device.laptop} {
+    max-width: 964px;
+  }
+  @media ${device.laptopL} {
+    max-width: 1400px;
+  }
+  @media ${device.desktop} {
+    max-width: 2500px;
+  }
 }
 
 :root{

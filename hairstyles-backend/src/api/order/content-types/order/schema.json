@@ -30,6 +30,10 @@
     },
     "total": {
       "type": "decimal"
+    },
+    "email": {
+      "type": "string",
+      "required": false
     }
   }
 }

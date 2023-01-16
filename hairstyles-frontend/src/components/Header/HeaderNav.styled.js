@@ -8,18 +8,16 @@ export const Container = styled.nav`
   justify-content: center;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 100;
+  background-color: var(--primary);
 `;
 
 export const Wrapper = styled.nav`
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 25px;
-  max-width: 1920px;
-  margin: 0 auto;
-  background-color: var(--primary);
+  padding-top: 12px;
+  padding-bottom: 12px;
   @media ${device.tablet} {
     justify-content: flex-start;
   }

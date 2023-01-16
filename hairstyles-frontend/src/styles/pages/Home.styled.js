@@ -7,12 +7,12 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  .content {
+  /* .content {
     width: 100%;
     @media ${device.tablet} {
       max-width: 1000px;
     }
-  }
+  } */
 `;
 
 export const MobileSlider = styled.div`

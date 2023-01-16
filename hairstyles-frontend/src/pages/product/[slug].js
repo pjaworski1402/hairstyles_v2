@@ -38,12 +38,12 @@ const Product = ({ product }) => {
 
   return (
     <Layout>
-      <Container>
+      <Container className="container">
         <MobileSlider onTouchStart={() => window.scrollTo(0, 0)}>
           <Slider slides={product.gallery.data} height={320} />
         </MobileSlider>
         {/* DESKTOP */}
-        <DesktopContentOffer>
+        <DesktopContentOffer className="container">
           <div className="headerWrapper">
             <button className="shareButton">
               <Image src={shareIco} width={20} height={20} />
@@ -80,12 +80,12 @@ const Product = ({ product }) => {
                 </div>
               </button>
             ) : (
-              <button className="bottomWrapper" onClick={handleAddToCart}>
-                <div className="addToCartButton">
+              <div className="bottomWrapper">
+                <button className="addToCartButton" onClick={handleAddToCart}>
                   <Image src={addToCartIco} width={20} height={20} />
                   Add to Cart {`($${product.price})`}
-                </div>
-              </button>
+                </button>
+              </div>
             )}
           </div>
         </DesktopContentOffer>

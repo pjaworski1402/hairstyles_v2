@@ -9,6 +9,9 @@ import CartOffer from "../../components/OfferCards/CartOffer";
 import { removeFromCart } from "../../redux/cart.slice";
 import Image from "next/image";
 import arrowRight from "../../static/icons/arrow-next.svg"
+import stripeIco from "../../static/images/stripe.png"
+import googlePayIco from "../../static/images/googlePay.png"
+import linkPayIco from "../../static/images/linkPay.png"
 
 const stripePromise = loadStripe(`pk_test_51M48txJbvSFyUq8IKOyqyNuANXMw7O22W0jYLUvraG6MSNHqjrTfJ2wp89CFeSYpDFQwoFdt52o1LmRtdmvhvJd400NIHoixad`)
 
@@ -80,20 +83,49 @@ const Cart = () => {
             sessionId: session.id,
         });
     }
-
+    console.log(products)
+    const getTotalPrice = () => {
+        if (products) {
+            const totalprice = products.reduce((accumulator, product) => {
+                return accumulator + product.attributes.price;
+            }, 0);
+            return totalprice;
+        }
+        return 0;
+    }
     return (
         <Layout>
-            <Container>
-                <h1 className="cartTitle">Checkout</h1>
+            <Container className="container">
+                <h1 className="cartTitle">Order summary</h1>
                 <div className="productsWrapper">
                     {products?.map(product => <CartOffer offer={product.attributes} removeProduct={removeProduct} />)}
                 </div>
                 <BottomWrapper>
-                    TOTAL { }
-                    <button className="nextButton" onClick={handleBuy}>
-                        Next
-                        <Image src={arrowRight} width={20} height={20} />
-                    </button>
+                    <div className="container">
+                        <div className="totalPrice">
+                            <span className="priceText">TOTAL</span> <span className="priceValue">${getTotalPrice()}</span>
+                        </div>
+                        <div className="summaryDesktop">
+                            <div className="paymentMethod">
+                                <h3 className="paymentMethodTitle">Payment</h3>
+                                <div className="paymentWrapper">
+                                    <Image src={stripeIco} width={148.25} height={47} />
+                                    <Image src={googlePayIco} width={67.37} height={32} />
+                                    <Image src={linkPayIco} width={117.03} height={32} />
+                                </div>
+                            </div>
+                            <div className="summaryTotalPrice">
+                                <h3 className="totalPriceTitle">Summary</h3>
+                                <div className="totalPriceDesktop">
+                                    <span className="priceText">Total</span> <span className="priceValue">${getTotalPrice()}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button className="nextButton container" onClick={handleBuy}>
+                            Next
+                            <Image src={arrowRight} width={20} height={20} />
+                        </button>
+                    </div>
                 </BottomWrapper>
             </Container>
         </Layout>);

@@ -23,7 +23,7 @@ const MobileContentOffer = ({ product, setCurrentTab, currentTab, isInCart }) =>
         dispatch(removeFromCart(product))
     }
     return (
-        <Container>
+        <Container className="container">
             <div className="productHeader">
                 <div className="topHeader">
                     <div className="title">{product.title}</div>

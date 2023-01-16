@@ -29,7 +29,7 @@ export default function Home(props) {
           <Slider slides={props.slides.mobile.attributes.slider} height={128} />
         </MobileSlider>
         <Wrapper>
-          <div className="content">
+          <div className="container">
             <Categories>
               <h3>Categories</h3>
               <div className="categoryWrapper">
@@ -43,7 +43,7 @@ export default function Home(props) {
           </div>
         </Wrapper>
         <Wrapper>
-          <div className="content">
+          <div className="container">
             <Offers>
               <h3>Last added</h3>
               <div className="offerWrapper">
