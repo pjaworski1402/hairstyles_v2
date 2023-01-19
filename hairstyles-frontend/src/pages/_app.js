@@ -58,7 +58,16 @@ MyApp.getInitialProps = async (ctx) => {
 
   const categories = await fetchAPI("/categories", {
     populate: {
-      populate: "*",
+      icon: "*",
+      types: {
+        populate: "*",
+      },
+    },
+  });
+
+  const genders = await fetchAPI("/genders", {
+    populate: {
+      populate: "*"
     },
   });
 
@@ -69,6 +78,7 @@ MyApp.getInitialProps = async (ctx) => {
       menu: menu.data,
       categories: categories.data,
       desktopMenu: desktopMenu.data,
+      genders: genders.data
     },
   };
 };

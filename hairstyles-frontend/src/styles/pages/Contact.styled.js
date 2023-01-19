@@ -45,7 +45,7 @@ export const Container = styled.div`
         width: 100%;
         border-radius: 6px;
         border: 1px solid #2082EB;
-        padding: 22px 32px;
+        padding: 32px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -61,15 +61,26 @@ export const Container = styled.div`
                 border-radius: 6px;
                 border:1px solid #BCC1CA;
                 margin-top: 12px;
+                width: 100%;
+                @media ${device.tablet} {
+                    width: 50%;
+                }
             }
             textarea.input{
                 line-height: 1.5;
                 resize: none;
                 padding: 12px;
                 height: 76px;
+                width: 100%;
+            }
+            .messageLength{
+                font-size: 12px;
+                text-align: right;
+                &.red{
+                    color:red;
+                }
             }
         }
-
         .sendButton{
             padding: 12px 32px;
             border-radius: 6px;

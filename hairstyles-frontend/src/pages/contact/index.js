@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Layout from "../../components/Layout/Layout"
 import { Container } from "../../styles/pages/Contact.styled"
 import Image from 'next/image';
@@ -8,17 +8,47 @@ import facebookImg from "../../static/images/facebook.svg"
 import youtubeImg from "../../static/images/youtube.svg"
 import instagramImg from "../../static/images/instagram.svg"
 import useAutosizeTextArea from '../../hooks/useAutosizeTextArea';
+import emailjs from '@emailjs/browser';
+import { getCookie, setCookie } from '../../hooks/useCookie';
 
 const Contact = () => {
-    const [value, setValue] = useState("");
+    const [valueMessage, setValueMessage] = useState("");
     const textAreaRef = useRef(null);
+    const form = useRef();
+    const [isSent, setIsSent] = useState(false);
+    const [isSending, setIsSending] = useState(false);
 
-    useAutosizeTextArea(textAreaRef.current, value);
+    useAutosizeTextArea(textAreaRef.current, valueMessage);
 
     const handleChange = (e) => {
         const val = e.target?.value;
-        setValue(val);
+        setValueMessage(val);
     };
+
+    useEffect(() => {
+        const emailContact = getCookie('emailContact');
+        setIsSent(emailContact);
+    })
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+        setIsSending(true);
+        if (valueMessage.length <= 255) {
+            emailjs.sendForm('service_l51xvgr', 'template_a1l9kgu', form.current, 'zMXb78t_2oyf_LsOj')
+                .then((result) => {
+                    console.log(result.text);
+                    setIsSent(true);
+                    setCookie('emailContact', true, {
+                        days: 1,
+                    });
+                    setIsSending(false);
+                }, (error) => {
+                    console.log(error.text);
+                    setIsSending(false);
+                });
+        }
+    };
+
     return (
         <Layout>
             <Container className='container'>
@@ -43,23 +73,27 @@ const Contact = () => {
                     </a>
                 </div>
                 <p className='text2'>or</p>
-                <form className='form'>
+                <form className='form' ref={form} onSubmit={sendEmail}>
                     <label className='label'>
-                        <div className='labelText'>Your e-mail:</div>
-                        <input className='input' placeholder='Type your e-mail' style={{ width: "50%" }} />
+                        <div className='labelText'>Your e-mail*</div>
+                        <input required type="email" name="user_email" className='input' placeholder='Type your e-mail' />
                     </label>
                     <label className='label'>
-                        <div className='labelText'>Your question:</div>
+                        <div className='labelText'>Your question*</div>
                         <textarea id="question"
                             onChange={handleChange}
                             ref={textAreaRef}
                             rows={1}
-                            value={value}
+                            value={valueMessage}
                             className='input'
                             placeholder='Write your question'
-                            style={{ width: "100%" }} />
+                            required
+                            name="message" />
+                        <div className={`messageLength${valueMessage.length > 255 ? " red" : ""}`}>{valueMessage.length}/255</div>
                     </label>
-                    <button className='sendButton'>Send</button>
+                    {isSent ? "Your e-mail has been sent to hairstyles support." : (
+                        <button disabled={isSending} className='sendButton'>Send</button>
+                    )}
                 </form>
             </Container>
         </Layout>

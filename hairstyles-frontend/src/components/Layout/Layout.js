@@ -5,6 +5,7 @@ import HeaderNav from "../Header/HeaderNav";
 import Menu from "../Header/Menu/Menu";
 import Seo from "../SEO/SEO";
 import Search from "../../elements/Search/Search";
+import Footer from "../Footer/Footer";
 
 const Layout = ({ children }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -55,6 +56,9 @@ const Layout = ({ children }) => {
       </div>
       {isMenuOpen ? <Menu /> : null}
       <Content>{children}</Content>
+      <div className="footer">
+        <Footer />
+      </div>
     </Container>
   );
 };

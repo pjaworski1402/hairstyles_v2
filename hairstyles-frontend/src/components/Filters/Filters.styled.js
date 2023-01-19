@@ -1,0 +1,87 @@
+import styled from "styled-components";
+import { device } from "../../styles/device";
+
+export const Container = styled.div`
+  border-radius: 6px;
+  box-shadow: 0px 0px 1px #171a1f, 0px 0px 2px #171a1f;
+  padding: 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  overflow-y: scroll;
+  z-index: 200;
+  background-color: var(--primary);
+  .header {
+    display: flex;
+    align-items: center;
+    .title {
+      font-size: 20px;
+      margin: 0 auto;
+      padding-left: 24px;
+    }
+    .closeButton {
+      justify-self: flex-end;
+    }
+  }
+  .clearAll {
+    color: #f22128;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    margin-top: 16px;
+  }
+  .filtersWrapper {
+    .filters {
+      border-bottom: 1px solid #dee1e6;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      :last-of-type {
+        border-bottom: none;
+      }
+      .filterTitle {
+        font-size: 16px;
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+      .filterSubtitle {
+        font-size: 15px;
+        text-transform: capitalize;
+        margin-bottom: 12px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .subFilters {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        text-transform: capitalize;
+        margin-bottom: 12px;
+      }
+      .filter {
+        font-size: 14px;
+        display: flex;
+        gap: 6px;
+        text-transform: capitalize;
+      }
+      .filterPrice {
+        margin-top: 32px;
+      }
+    }
+    .submitButton{
+      gap: 6px;
+      border-radius: 6px;
+      background: #2082EB;
+      color:white;
+      width: 100%;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+  }
+`;
