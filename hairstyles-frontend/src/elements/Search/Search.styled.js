@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
   height: 36px;
   display: flex;
-  width: 100%;
+  width: calc(100% - (36px + 12px));
   position:relative;
   .hints{
     position:absolute;

@@ -9,11 +9,71 @@ import {
 } from "../../styles/pages/Results.styled";
 import VerticalOffer from "../../components/OfferCards/VerticalOffer";
 import HorizontalOffer from "../../components/OfferCards/HorizontalOffer";
-import Filters from "../../components/Filters/Filters";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // import Seo from "../components/SEO/SEO";
 
+function getMinMax(arr) {
+    let min = Infinity;
+    let max = -Infinity;
+    arr.forEach(val => {
+        const [start, end] = val.split("-").map(Number);
+        if (start < min) {
+            min = start;
+        }
+        if (end > max) {
+            max = end;
+        }
+    });
+    // if (arr.length === 1) {
+    //     max = min
+    // }
+    return [min, max];
+}
+
 export default function Results(props) {
+    const [products, setProducts] = useState([])
+    const router = useRouter()
+    useEffect(() => {
+        const { type, gender, texture, price } = router.query;
+        const textureValueRange = getMinMax(JSON.parse(texture || "[1-99]"))
+        const priceValueRange = JSON.parse(price || "[1,200]")
+        fetchAPI("/products", {
+            filters: {
+                type: {
+                    name: { $in: JSON.parse(type || "[]") }
+                },
+                gender: {
+                    name: { $in: JSON.parse(gender || "[]") }
+                },
+                color_variants: {
+                    $gte: textureValueRange[0],
+                    $lte: textureValueRange[1]
+                },
+                price: {
+                    $gte: priceValueRange[0],
+                    $lte: priceValueRange[1]
+                }
+            },
+            populate: {
+                type: {
+                    populate: "*"
+                },
+                gender: {
+                    populate: "*"
+                },
+                gallery: {
+                    populate: "*",
+                },
+                tags: {
+                    populate: "*",
+                },
+            },
+        }).then((res) => {
+            setProducts(res.data)
+        });
+    }, [router.query])
     return (
         <Layout>
             <Container>
@@ -26,17 +86,16 @@ export default function Results(props) {
                 <MobileSlider>
                     <Slider slides={props.slides.mobile.attributes.slider} height={128} />
                 </MobileSlider>
-                <Filters />
-                {/* <div className="container">
+                <div className="container">
                     <Offers>
                         <h3>Last added</h3>
                         <div className="offerWrapper">
-                            {props.products.last.map((product, index) => {
+                            {products.map((product, index) => {
                                 return <VerticalOffer key={product.id} product={product} />;
                             })}
                         </div>
                     </Offers>
-                </div> */}
+                </div>
             </Container>
         </Layout>
     );
@@ -64,16 +123,7 @@ export async function getStaticProps() {
             },
         },
     });
-    const productLast = await fetchAPI("/products", {
-        populate: {
-            gallery: {
-                populate: "*",
-            },
-            tags: {
-                populate: "*",
-            },
-        },
-    });
+
     return {
         props: {
             slides: {
@@ -81,9 +131,6 @@ export async function getStaticProps() {
                 desktop: slidesDesktop.data,
             },
             categoryCircles: categoryCircles.data,
-            products: {
-                last: productLast.data,
-            },
         },
     };
 }

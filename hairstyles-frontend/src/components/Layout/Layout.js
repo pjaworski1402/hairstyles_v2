@@ -6,11 +6,15 @@ import Menu from "../Header/Menu/Menu";
 import Seo from "../SEO/SEO";
 import Search from "../../elements/Search/Search";
 import Footer from "../Footer/Footer";
+import Filters from "../Filters/Filters";
+import filtersIco from "../../static/icons/filters.svg"
+import Image from "next/image";
 
 const Layout = ({ children }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const searchRef = useRef(null)
 
   const controlNavbar = () => {
@@ -50,9 +54,13 @@ const Layout = ({ children }) => {
   return (
     <Container>
       <Seo />
+      {isFiltersOpen && <Filters setIsFiltersOpen={setIsFiltersOpen} />}
       <HeaderNav setMenuOpen={setMenuOpen} isMenuOpen={isMenuOpen} />
       <div className={`searchMobile ${showSearch ? 'show' : "hidden"}`}>
         <Search searchRef={searchRef} showSearch={showSearch} />
+        <button onClick={() => setIsFiltersOpen(true)} className="filtersButton">
+          <Image src={filtersIco} width={16} height={16} />
+        </button>
       </div>
       {isMenuOpen ? <Menu /> : null}
       <Content>{children}</Content>

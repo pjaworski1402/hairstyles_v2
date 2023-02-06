@@ -64,7 +64,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             line_items: allItems,
             mode: "payment",
             success_url: `${BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: BASE_URL,
+            cancel_url: `${BASE_URL}/failed?session_id={CHECKOUT_SESSION_ID}`,
         })
         console.log("Sesja", session)
         const newOrder = await strapi.entityService.create('api::order.order', {
@@ -93,31 +93,31 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             if (getOrderId[0].status !== "paid") {
                 const products = getOrderId.map(order => order.products)
                 const slugs = products.map(product => product.map(({ slug }) => slug)).flat()
-                const attachments = await Promise.all(slugs.map(async (slug) => {
-                    try {
-                        const file = await fs.promises.readFile(`/home/pjaworski/apps/hairstyles/hairstyles-backend/private/${slug}.zip`)
-                        return {
-                            filename: `${slug}.zip`,
-                            content: file
-                        }
-                    } catch (err) {
-                        console.log(err);
-                    }
-                }));
-                const mailOptions = {
-                    from: 'kowexxxl@gmail.com',
-                    to: `${session.customer_details.email}`,
-                    subject: 'Purchase Confirmation',
-                    html: `<p>Thank you for purchasing! Check attachments</p>`,
-                    attachments: attachments
-                };
-                transporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                });
+                // const attachments = await Promise.all(slugs.map(async (slug) => {
+                //     try {
+                //         const file = await fs.promises.readFile(`/home/pjaworski/apps/hairstyles/hairstyles-backend/private/${slug}.zip`)
+                //         return {
+                //             filename: `${slug}.zip`,
+                //             content: file
+                //         }
+                //     } catch (err) {
+                //         console.log(err);
+                //     }
+                // }));
+                // const mailOptions = {
+                //     from: 'kowexxxl@gmail.com',
+                //     to: `${session.customer_details.email}`,
+                //     subject: 'Purchase Confirmation',
+                //     html: `<p>Thank you for purchasing! Check attachments</p>`,
+                //     attachments: attachments
+                // };
+                // transporter.sendMail(mailOptions, (error, info) => {
+                //     if (error) {
+                //         console.log(error);
+                //     } else {
+                //         console.log('Email sent: ' + info.response);
+                //     }
+                // });
             }
 
             const newOrder = await strapi.entityService.update('api::order.order', getOrderId[0].id, {
@@ -132,7 +132,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
 
         } else {
             return ctx.send({
-                error: "It seems like the order wasn't verified, please contact support"
+                error: "It seems like the order wasn't verified. If you have any questions, please contact our support."
             }, 400);
         }
     }

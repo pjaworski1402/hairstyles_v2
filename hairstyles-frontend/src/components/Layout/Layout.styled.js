@@ -3,6 +3,14 @@ import { device } from "../../styles/device";
 
 export const Container = styled.div`
     position: relative;
+    .filtersButton{
+        background-color: var(--contrast);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 6px;
+        width: 36px;
+    }
     .searchMobile{
         position: fixed;
         width: 100%;
@@ -10,6 +18,8 @@ export const Container = styled.div`
         background-color: #fff;
         padding: 12px 25px;
         transition: top 0.4s ease-out;
+        display: flex;
+        gap: 12px;
         &.show {
         top: 59px;
         }
