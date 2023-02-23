@@ -7,12 +7,12 @@ export function getStrapiMedia(media) {
     imageUrl = [];
     media?.data.forEach((element) => {
       url = element.attributes.url;
-      imageUrl.push(url?.startsWith("/uploads") ? getStrapiURL(url) : url);
+      imageUrl.push(url?.startsWith("/uploads") ? getStrapiURL(url, true) : url);
     });
     return imageUrl;
   } else {
     url = media?.data.attributes.url;
-    imageUrl = url?.startsWith("/uploads") ? getStrapiURL(url) : url;
+    imageUrl = url?.startsWith("/uploads") ? getStrapiURL(url, true) : url;
     if (imageUrl) {
       return imageUrl;
     } else {

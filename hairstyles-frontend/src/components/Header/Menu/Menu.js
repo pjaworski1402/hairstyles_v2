@@ -40,7 +40,6 @@ const Menu = () => {
       );
     }
   }, [openMenu]);
-  // console.log(menuItems);
   return (
     <Container>
       <Wrapper ref={wrapperRef} className="container">

@@ -20,7 +20,6 @@ const Cart = () => {
     const [products, setProducts] = useState();
     const [totalPrice, setTotalPrice] = useState(0);
     const dispatch = useDispatch();
-    console.log(cart)
 
     const productsRes = fetchAPI("/products", {
         filters: {
@@ -46,12 +45,11 @@ const Cart = () => {
                 populate: "*",
             }
         },
-    });
+    }, {}, true);
 
     useEffect(() => {
         productsRes.then(res => {
             setProducts(res.data)
-            console.log(res.data)
             // setTotalPrice(res.data)
         }).catch(err => console.log(err))
     }, [cart])
@@ -63,13 +61,11 @@ const Cart = () => {
     const handleBuy = async (e) => {
         const stripe = await stripePromise
         e.preventDefault()
-        console.log("test", products)
         const getIds = products.map(product => product.id)
         const productIds = {
             product: { id: getIds }
         }
-        console.log(productIds)
-        const res = await fetch(`http://firos:1337/api/orders/`, {
+        const res = await fetch(`http://dev.hairstyles-gta5.com:1337/api/orders/`, {
             method: 'POST',
             body: JSON.stringify(productIds),
             headers: {
@@ -77,13 +73,11 @@ const Cart = () => {
             }
         })
         const session = await res.json()
-        console.log("session", session)
 
         const result = await stripe.redirectToCheckout({
             sessionId: session.id,
         });
     }
-    console.log(products)
     const getTotalPrice = () => {
         if (products) {
             const totalprice = products.reduce((accumulator, product) => {

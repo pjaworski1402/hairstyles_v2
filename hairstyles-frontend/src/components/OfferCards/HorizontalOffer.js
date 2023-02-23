@@ -9,7 +9,7 @@ const HorizontalOffer = ({ product }) => {
   const { attributes: offer } = product;
   const image = getStrapiMedia(offer.gallery);
   const imageData = offer.gallery.data[0].attributes;
-  console.log(offer.slug);
+  console.log(offer);
   return (
     <Container>
       <Link href={`/product/${offer.slug}`}>
@@ -26,11 +26,12 @@ const HorizontalOffer = ({ product }) => {
           <div className="offerWrapper">
             <div className="offerTitle">{offer.title}</div>
             <div className="tags">
-              {offer.tags.data.map((tag, index) => {
+              {/* {offer.tags.data.map((tag, index) => {
                 return index < offer.tags.data.length - 1
                   ? `${tag.attributes.name} |`
                   : tag.attributes.name;
-              })}
+              })} */}
+              {offer?.type?.data?.attributes?.category?.data?.attributes?.name} | {offer?.character?.data?.attributes?.name} | {offer?.color_variants} textures
             </div>
             <div className="description">{offer.description}</div>
             <div className="priceWrapper">

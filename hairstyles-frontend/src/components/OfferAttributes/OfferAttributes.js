@@ -36,7 +36,7 @@ const OfferAttributes = ({ product }) => {
             </div>
         </div>
         <div className="attribute">
-            <div className="attributeTitle">Type</div>
+            <div className="attributeTitle">Character</div>
             <div className="attributeWrapper">
                 <Image src={userGearIco} width={24} height={24} />
                 {product.character.data.attributes.name}

@@ -33,6 +33,9 @@ const Filters = (props) => {
             }
         });
         link += `&price=[${priceMin},${priceMax}]`
+        if (router.query.search) {
+            link += `&search=${router.query.search}`;
+        }
         // link = link.replace(/\"/g, "");
         props.setIsFiltersOpen(false)
         router.push(link);
@@ -55,13 +58,13 @@ const Filters = (props) => {
         // .replace(/\[\"|\"\]/g, '')
         const defaultFilter = []
         Object.entries(query).map(([key, value]) => {
-            if (key !== "price") {
+            if (key !== "price" && key !== "search") {
                 value = JSON.parse(value)
                 value.forEach((element) => {
                     defaultFilter.push(`${key}=${element}`)
                 })
             } else {
-                const defaultPrice = JSON.parse(value);
+                // const defaultPrice = JSON.parse(value);
             }
         });
         setFilters(defaultFilter)

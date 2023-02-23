@@ -23,8 +23,6 @@ const Product = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    console.log("test")
-    console.log(product)
     dispatch(addToCart(product))
     return (1)
   }
@@ -123,9 +121,6 @@ export async function getStaticProps({ params }) {
       },
       type: {
         populate: "*"
-      },
-      category: {
-        populate: "*",
       },
       gender: {
         populate: "*",

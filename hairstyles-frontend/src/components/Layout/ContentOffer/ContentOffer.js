@@ -15,7 +15,6 @@ const MobileContentOffer = ({ product, setCurrentTab, currentTab, isInCart }) =>
     const dispatch = useDispatch();
 
     const handleAddToCart = () => {
-        console.log("test")
         dispatch(addToCart(product))
     }
 

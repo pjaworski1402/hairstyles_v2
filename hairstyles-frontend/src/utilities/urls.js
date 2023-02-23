@@ -1,1 +1,1 @@
-export const API_URL = "http://firos:1337"
+export const API_URL = "http://dev.hairstyles-gta5.com:1337"

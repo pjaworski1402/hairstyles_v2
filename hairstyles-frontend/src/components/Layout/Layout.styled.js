@@ -12,7 +12,7 @@ export const Container = styled.div`
         width: 36px;
     }
     .searchMobile{
-        position: fixed;
+        position: sticky;
         width: 100%;
         z-index: 1;
         background-color: #fff;

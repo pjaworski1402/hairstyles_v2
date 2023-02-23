@@ -43,7 +43,6 @@ export default function Success() {
     const router = useRouter()
     const { session_id } = router.query
     const { order, loading } = useOrder(session_id)
-    console.log(order)
     return (
         <Layout>
             <Container className='container'>

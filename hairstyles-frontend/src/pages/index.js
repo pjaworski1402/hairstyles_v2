@@ -89,6 +89,12 @@ export async function getStaticProps() {
       tags: {
         populate: "*",
       },
+      type: {
+        populate: "*"
+      },
+      character: {
+        populate: "*",
+      }
     },
   });
   return {

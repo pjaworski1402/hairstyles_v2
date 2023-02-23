@@ -6,7 +6,6 @@ const cartSlice = createSlice({
     initialState: getLocalCart(),
     reducers: {
         addToCart: (state, action) => {
-            console.log(state)
             const itemExists = state.find((item) => item === action.payload.slug);
             if (!itemExists) {
                 addToLocalCart(action.payload.slug)

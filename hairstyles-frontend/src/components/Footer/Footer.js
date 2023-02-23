@@ -13,6 +13,7 @@ import instagramImg from "../../static/images/instagram.svg"
 const Footer = () => {
     const { global, menu, desktopMenu } = useContext(GlobalContext);
     const { logo, siteName } = global.attributes;
+    console.log(global)
     return (
         <Container>
             <div className='wrapper container'>
@@ -34,10 +35,10 @@ const Footer = () => {
                     <div className='navItem'>
                         <div className='navTitle'>Items</div>
                         <div className='navLinks'>
-                            <Link href={"/"}>Clothes</Link>
-                            <Link href={"/"}>Hairstyles</Link>
-                            <Link href={"/"}>Peds</Link>
-                            <Link href={"/"}>Ped sizes</Link>
+                            <Link href={`/results?type=["top","dress","bottom","hat","shoes","accessories"]&price=[1,200]`}>Clothes</Link>
+                            <Link href={`/results?type=["long","medium","short"]&price=[1,200]`}>Hairstyles</Link>
+                            <Link href={`/results?type=["ped","baby","child1","child2","teen","adult","other"]&price=[1,200]`}>Peds</Link>
+                            <Link href={"/ped-sizes"}>Ped sizes</Link>
                         </div>
                     </div>
                     <div className='navItem'>
@@ -56,30 +57,30 @@ const Footer = () => {
                             <Link href={"/"}>Contact us</Link>
                         </div>
                     </div>
-                    <div className='navItem'>
+                    {/* <div className='navItem'>
                         <div className='navTitle'>Your style</div>
                         <div className='navLinks'>
                             <Link href={"/"}>Create your style</Link>
                             <Link href={"/"}>Request for a custom item</Link>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='copyright'>
-                    © 2020-2022 hairstyles-gta5.com • Site created by Piotr Jaworski
+                    © 2020-2023 hairstyles-gta5.com • Site created by Piotr Jaworski
                     <div className='contact'>
-                        <a href='/'>
+                        <a href={global.attributes.discordLink}>
                             <Image src={discordImg} width={20} height={20} />
                         </a>
-                        <a href='/'>
+                        <a href={global.attributes.email}>
                             <Image src={mailImg} width={20} height={20} />
                         </a>
-                        <a href='/'>
+                        <a href={global.attributes.facebookLink}>
                             <Image src={facebookImg} width={20} height={20} />
                         </a>
-                        <a href='/'>
+                        <a href={global.attributes.youtubeLink}>
                             <Image src={youtubeImg} width={20} height={20} />
                         </a>
-                        <a href='/'>
+                        <a href={global.attributes.instagramLink}>
                             <Image src={instagramImg} width={20} height={20} />
                         </a>
                     </div>

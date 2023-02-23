@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-02-06T21:31:50.445Z"
+    "x-generation-date": "2023-02-23T22:36:11.226Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -43766,6 +43766,21 @@
               },
               "defaultSeo": {
                 "$ref": "#/components/schemas/SeoDefaultSeoComponent"
+              },
+              "discordLink": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "facebookLink": {
+                "type": "string"
+              },
+              "youtubeLink": {
+                "type": "string"
+              },
+              "instagramLink": {
+                "type": "string"
               }
             }
           }
@@ -44406,6 +44421,21 @@
               },
               "defaultSeo": {
                 "$ref": "#/components/schemas/SeoDefaultSeoComponent"
+              },
+              "discordLink": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "facebookLink": {
+                "type": "string"
+              },
+              "youtubeLink": {
+                "type": "string"
+              },
+              "instagramLink": {
+                "type": "string"
               },
               "createdAt": {
                 "type": "string",
@@ -45343,6 +45373,21 @@
               },
               "defaultSeo": {
                 "$ref": "#/components/schemas/SeoDefaultSeoComponent"
+              },
+              "discordLink": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "facebookLink": {
+                "type": "string"
+              },
+              "youtubeLink": {
+                "type": "string"
+              },
+              "instagramLink": {
+                "type": "string"
               },
               "createdAt": {
                 "type": "string",
@@ -46314,6 +46359,21 @@
               "defaultSeo": {
                 "$ref": "#/components/schemas/SeoDefaultSeoComponent"
               },
+              "discordLink": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "facebookLink": {
+                "type": "string"
+              },
+              "youtubeLink": {
+                "type": "string"
+              },
+              "instagramLink": {
+                "type": "string"
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -47250,6 +47310,21 @@
               },
               "defaultSeo": {
                 "$ref": "#/components/schemas/SeoDefaultSeoComponent"
+              },
+              "discordLink": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "facebookLink": {
+                "type": "string"
+              },
+              "youtubeLink": {
+                "type": "string"
+              },
+              "instagramLink": {
+                "type": "string"
               },
               "createdAt": {
                 "type": "string",

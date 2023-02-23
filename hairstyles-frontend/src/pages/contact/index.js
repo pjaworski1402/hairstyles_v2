@@ -36,14 +36,12 @@ const Contact = () => {
         if (valueMessage.length <= 255) {
             emailjs.sendForm('service_l51xvgr', 'template_a1l9kgu', form.current, 'zMXb78t_2oyf_LsOj')
                 .then((result) => {
-                    console.log(result.text);
                     setIsSent(true);
                     setCookie('emailContact', true, {
                         days: 1,
                     });
                     setIsSending(false);
                 }, (error) => {
-                    console.log(error.text);
                     setIsSending(false);
                 });
         }
