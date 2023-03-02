@@ -37,7 +37,7 @@ const Filters = (props) => {
             link += `&search=${router.query.search}`;
         }
         // link = link.replace(/\"/g, "");
-        props.setIsFiltersOpen(false)
+        props.setIsFiltersOpen && props.setIsFiltersOpen(false)
         router.push(link);
     };
 
@@ -58,7 +58,7 @@ const Filters = (props) => {
         // .replace(/\[\"|\"\]/g, '')
         const defaultFilter = []
         Object.entries(query).map(([key, value]) => {
-            if (key !== "price" && key !== "search") {
+            if (key !== "price" && key !== "search" && key !== "page") {
                 value = JSON.parse(value)
                 value.forEach((element) => {
                     defaultFilter.push(`${key}=${element}`)

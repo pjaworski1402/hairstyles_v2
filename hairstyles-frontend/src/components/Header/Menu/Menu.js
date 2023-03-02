@@ -15,13 +15,15 @@ import {
 } from "./Menu.styled";
 import arrowRight from "../../../static/icons/arrow-right.svg";
 import arrowDown from "../../../static/icons/arrow-down.svg";
+import { useRouter } from "next/router";
 
-const Menu = () => {
+const Menu = ({ setMenuOpenProps }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const wrapperRef = useRef(null);
   const subMenuRef = useRef(null);
   const { menu, categories } = useContext(GlobalContext);
   const { menuItems } = menu.attributes;
+  const router = useRouter();
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.inOut" } });
     tl.fromTo(
@@ -51,7 +53,7 @@ const Menu = () => {
               <Element
                 onClick={() => setOpenMenu(openMenu ? false : element.id)}
               >
-                <Link href={element.path ? element.path : "/"}>
+                <Link href={getCategories ? `${router.pathname}/#` : (element.path ? element.path : "/")}>
                   <a>
                     <Icon>
                       <Image
@@ -60,6 +62,7 @@ const Menu = () => {
                         unoptimized
                         width={28}
                         height={28}
+                        alt="ico"
                       />
                     </Icon>
                     {element.title}
@@ -70,6 +73,7 @@ const Menu = () => {
                           width={16}
                           height={16}
                           className="dropDown"
+                          alt="dropdown"
                         />
                       </DropDownIco>
                     ) : null}
@@ -82,11 +86,11 @@ const Menu = () => {
                     return (
                       <SubElement key={`category_${category.id}`}>
                         <Link
-                          href={`/${element.title}/${category.attributes.name}`}
+                          href={`/${element.path}?type=[${category.attributes.types.data.map(type => `"${type.attributes.name}"`)}]`}
                         >
-                          <a>
+                          <a onClick={() => setMenuOpenProps(false)}>
                             <Icon>
-                              <Image src={arrowRight} width={16} height={16} />
+                              <Image src={arrowRight} width={16} height={16} alt="next" />
                             </Icon>
                             {category.attributes.name}
                           </a>

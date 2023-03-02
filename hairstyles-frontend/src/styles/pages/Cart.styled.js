@@ -1,14 +1,14 @@
-import styled from 'styled-components';
-import { device } from '../device';
+import styled from "styled-components";
+import { device } from "../device";
 
 export const Container = styled.div`
-  position:relative;
+  position: relative;
   margin-top: 60px;
   @media ${device.tablet} {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  .cartTitle{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .cartTitle {
     margin-bottom: 16px;
     font-size: 24px;
     @media ${device.tablet} {
@@ -17,82 +17,84 @@ export const Container = styled.div`
       margin-bottom: 32px;
     }
   }
-  .productsWrapper{
+  .productsWrapper {
     display: flex;
     flex-direction: column;
-    gap:5px;
+    gap: 5px;
     @media ${device.tablet} {
       gap: 12px;
       flex-basis: 50%;
     }
   }
-
 `;
 
 export const BottomWrapper = styled.div`
   position: fixed;
-  bottom:0;
-  left:0;
+  bottom: 0;
+  left: 0;
   width: 100%;
   padding: 36px 0;
+  background-color: white;
+  z-index: 1;
   @media ${device.tablet} {
     position: relative;
     flex-basis: 40%;
     border-radius: 6px;
-    border: 1px solid #DEE1E6;
+    border: 1px solid #dee1e6;
     margin-left: auto;
-    }
-  .totalPrice{
+    height: fit-content;
+  }
+  .totalPrice {
     display: flex;
     justify-content: space-between;
     margin-bottom: 28px;
-    border-top: 1px solid #DEE1E6;
+    border-top: 1px solid #dee1e6;
     padding-top: 12px;
     @media ${device.tablet} {
       display: none;
     }
-    .priceText{
+    .priceText {
       font-size: 14px;
       color: #323842;
     }
-    .priceValue{
-      font-size: 20px; 
-      color: #2082EB;
+    .priceValue {
+      font-size: 20px;
+      color: #2082eb;
     }
   }
-  .summaryDesktop{
+  .summaryDesktop {
     display: none;
     @media ${device.tablet} {
       display: flex;
       flex-direction: column;
-      .paymentMethod{
-        .paymentWrapper{
+      .paymentMethod {
+        .paymentWrapper {
           display: flex;
           flex-wrap: wrap;
           gap: 12px;
           align-items: center;
         }
-        .paymentMethodTitle{
+        .paymentMethodTitle {
           font-size: 18px;
           margin-bottom: 14px;
         }
       }
-      .summaryTotalPrice{
+      .summaryTotalPrice {
         margin-top: 32px;
-          .totalPriceTitle{
-            font-size: 18px;
-            margin-bottom: 14px;
-          }
-          .totalPriceDesktop{
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid #DEE1E6;
-            padding-top: 14px;
-          }
+        .totalPriceTitle {
+          font-size: 18px;
+          margin-bottom: 14px;
+        }
+        .totalPriceDesktop {
+          display: flex;
+          justify-content: space-between;
+          border-top: 1px solid #dee1e6;
+          padding-top: 14px;
+        }
       }
     }
   }
-  .nextButton{
+  .nextButton {
     border-radius: 6px;
     font-size: 16px;
     display: flex;

@@ -11,9 +11,13 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   max-height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: 200;
   background-color: var(--primary);
+  @media ${device.tablet} {
+    position: static;
+    max-height: unset;
+  }
   .header {
     display: flex;
     align-items: center;
@@ -21,9 +25,17 @@ export const Container = styled.div`
       font-size: 20px;
       margin: 0 auto;
       padding-left: 24px;
+      @media ${device.tablet} {
+      font-size: 16px;
+      padding-left: 0;
+      margin: 0;
+      }
     }
     .closeButton {
       justify-self: flex-end;
+      @media ${device.tablet} {
+        display: none;
+      }
     }
   }
   .clearAll {
@@ -32,8 +44,19 @@ export const Container = styled.div`
     text-align: center;
     width: 100%;
     margin-top: 16px;
+    @media ${device.tablet} {
+      margin-top: 0px;
+      text-align: right;
+      margin-top: -16px;
+      display: block;
+    }
   }
   .filtersWrapper {
+    @media ${device.tablet} {
+        padding-top: 12px;
+        margin-top: 12px;
+        border-top: 1px solid #F3F4F6;
+      }
     .filters {
       border-bottom: 1px solid #dee1e6;
       margin-bottom: 12px;

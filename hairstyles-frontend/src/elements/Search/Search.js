@@ -4,24 +4,24 @@ import { MeiliSearch } from "meilisearch";
 import { Container, Input, Label } from "./Search.styled";
 import searchIco from "../../static/icons/search.svg";
 import Image from "next/image";
-import { useRouter } from 'next/router';
-import useOutsideClick from "../../hooks/useOutsideClick"
+import { useRouter } from "next/router";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 const client = new MeiliSearch({
-  host: "http://46.205.217.176:7700",
+  host: "http://46.205.217.7:7700",
 });
 
 const Search = (props) => {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState([]);
-  const searchRef = useRef(null)
+  const searchRef = useRef(null);
   const [hintsIsOpen, setHitnsIsOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useOutsideClick(searchRef, () => {
-    setHitnsIsOpen(false)
-  })
+    setHitnsIsOpen(false);
+  });
 
   useEffect(() => {
     if (search.length > 1) {
@@ -30,17 +30,16 @@ const Search = (props) => {
         .search(search)
         .then((results) => {
           const { hits } = results;
-          let types = hits.filter((value, index, self) =>
-            index === self.findIndex((t) => (
-              t.type.name === value.type.name
-            ))
+          let types = hits.filter(
+            (value, index, self) =>
+              index === self.findIndex((t) => t.type.name === value.type.name)
           );
           // const titles = hits.map(hit => hit.title);
           const titles = [];
-          types = types.map(type => type.type.name)
-          loaded && setHitnsIsOpen(true)
+          types = types.map((type) => type.type.name);
+          loaded && setHitnsIsOpen(true);
           setProducts([...types, ...titles]);
-          setLoaded(true)
+          setLoaded(true);
         });
     } else {
       setProducts([]);
@@ -51,25 +50,25 @@ const Search = (props) => {
     if (!props.showSearch) {
       setProducts([]);
     }
-  }, [props.showSearch])
+  }, [props.showSearch]);
 
   useEffect(() => {
     if (router.query.search) {
       setSearch(router.query.search);
     }
-  }, [router.query.search])
+  }, [router.query.search]);
 
   const handleSearch = (title) => {
     let query = { search: title };
     if (router.query.type) query.type = router.query.type;
     if (router.query.gender) query.gender = router.query.gender;
     if (router.query.price) query.price = router.query.price;
-    setSearch(title)
-    setHitnsIsOpen(false)
-    setLoaded(false)
+    setSearch(title);
+    setHitnsIsOpen(false);
+    setLoaded(false);
     router.push({
-      pathname: '/results',
-      query: query
+      pathname: "/results",
+      query: query,
     });
   };
   return (
@@ -82,11 +81,25 @@ const Search = (props) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           ref={props.searchRef}
-          onKeyDown={(e) => { e.key === 'Enter' && search.length > 1 && handleSearch(search) }}
+          onKeyDown={(e) => {
+            e.key === "Enter" && handleSearch(search);
+          }}
         />
       </Label>
-      <ul className={`hints ${hintsIsOpen && products.length > 0 ? "show" : "hidden"}`}>
-        {products.map(title => <li key={Math.random()} className="hint" onClick={() => handleSearch(title)}>{title}</li>)}
+      <ul
+        className={`hints ${
+          hintsIsOpen && products.length > 0 ? "show" : "hidden"
+        }`}
+      >
+        {products.map((title) => (
+          <li
+            key={Math.random()}
+            className="hint"
+            onClick={() => handleSearch(title)}
+          >
+            {title}
+          </li>
+        ))}
       </ul>
     </Container>
   );

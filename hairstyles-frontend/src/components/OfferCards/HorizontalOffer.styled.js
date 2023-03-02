@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { device } from "../../styles/device";
 
-export const Container = styled.div`
+export const ContainerHorizontal = styled.div`
   border-bottom: 1px solid #bcc1ca;
+  :last-of-type {
+    border-bottom: none;
+  }
   @media ${device.tablet} {
     border: 1px solid #f3f4f6;
     border-radius: 6px;
@@ -65,12 +68,16 @@ export const Container = styled.div`
       .description {
         display: none;
         @media ${device.tablet} {
-          display: block;
+          /* display: block; */
           max-width: 100%;
           overflow: hidden;
           font-size: 12px;
-          color: #9095a0;
-          height: 30px;
+          color: #323842;
+          /* height: 30px; */
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          white-space: pre-wrap;
         }
       }
       .priceWrapper {
@@ -118,6 +125,42 @@ export const Container = styled.div`
           display: none;
           @media ${device.tablet} {
             background-color: #2082eb;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            img,
+            span {
+              margin-right: 2px !important;
+            }
+          }
+        }
+        .addedToCartButton {
+          border-radius: 50%;
+          background-color: #41b029;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: auto;
+          :hover {
+            background-color: #30821d;
+          }
+          :hover img {
+            filter: brightness(0) invert(1);
+          }
+          @media ${device.tablet} {
+            display: none;
+          }
+        }
+        .addedToCartButtonDesktop {
+          display: none;
+          @media ${device.tablet} {
+            background-color: #41b029;
             color: white;
             padding: 12px;
             border-radius: 6px;

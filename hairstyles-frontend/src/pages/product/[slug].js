@@ -1,16 +1,23 @@
 import { useRouter } from "next/router";
 import { fetchAPI } from "../../lib/api";
 import Slider from "../../components/Slick/Slider";
-import { useDispatch, useSelector } from 'react-redux';
-import { Container, MobileSlider, DesktopSlider, DesktopContentOffer } from "../../styles/pages/Product.styled";
-import ContentOffer, { tabs } from "../../components/Layout/ContentOffer/ContentOffer";
-import Layout from "../../components/Layout/Layout"
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Container,
+  MobileSlider,
+  DesktopSlider,
+  DesktopContentOffer,
+} from "../../styles/pages/Product.styled";
+import ContentOffer, {
+  tabs,
+} from "../../components/Layout/ContentOffer/ContentOffer";
+import Layout from "../../components/Layout/Layout";
 import Image from "next/image";
-import shareIco from "../../static/icons/share.svg"
-import addToCartIco from "../../static/icons/add-to-cart.svg"
+import shareIco from "../../static/icons/share.svg";
+import addToCartIco from "../../static/icons/add-to-cart.svg";
 import OfferAttributes from "../../components/OfferAttributes/OfferAttributes";
 import { useState } from "react";
-import { addToCart, removeFromCart } from '../../redux/cart.slice';
+import { addToCart, removeFromCart } from "../../redux/cart.slice";
 import { useEffect } from "react";
 
 const Product = ({ product }) => {
@@ -23,15 +30,15 @@ const Product = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product))
-    return (1)
-  }
+    dispatch(addToCart(product));
+    return 1;
+  };
   const handleRemoveFromCart = () => {
-    dispatch(removeFromCart(product))
-  }
+    dispatch(removeFromCart(product));
+  };
 
   useEffect(() => {
-    setIsInCart(cart.includes(slug))
+    setIsInCart(cart.includes(slug));
   });
 
   return (
@@ -52,9 +59,7 @@ const Product = ({ product }) => {
             <Slider slides={product.gallery.data} height={470} />
           </DesktopSlider>
           <div className="productInfo">
-            <div className="title">
-              {product.title}
-            </div>
+            <div className="title">{product.title}</div>
             <div className="priceWrapper">
               <div className="priceTitle">Price</div>
               <div className="price">${product.price}</div>
@@ -73,9 +78,7 @@ const Product = ({ product }) => {
             <OfferAttributes product={product} />
             {isInCart ? (
               <button className="bottomWrapper" onClick={handleRemoveFromCart}>
-                <div className="removeFromCartButton">
-                  Remove from Cart
-                </div>
+                <div className="removeFromCartButton">Remove from Cart</div>
               </button>
             ) : (
               <div className="bottomWrapper">
@@ -88,7 +91,14 @@ const Product = ({ product }) => {
           </div>
         </DesktopContentOffer>
         <div className="offerInfo">
-          <ContentOffer handleRemoveFromCart={handleRemoveFromCart} isInCart={isInCart} addToCart={addToCart} product={product} setCurrentTab={setCurrentTab} currentTab={currentTab} />
+          <ContentOffer
+            handleRemoveFromCart={handleRemoveFromCart}
+            isInCart={isInCart}
+            addToCart={addToCart}
+            product={product}
+            setCurrentTab={setCurrentTab}
+            currentTab={currentTab}
+          />
         </div>
       </Container>
     </Layout>
@@ -96,7 +106,12 @@ const Product = ({ product }) => {
 };
 
 export async function getStaticPaths() {
-  const productsRes = await fetchAPI("/products", { fields: ["slug"] });
+  const productsRes = await fetchAPI("/products", {
+    fields: ["slug"],
+    pagination: {
+      limit: -1,
+    },
+  });
   return {
     paths: productsRes.data.map((product) => ({
       params: {
@@ -120,14 +135,14 @@ export async function getStaticProps({ params }) {
         populate: "*",
       },
       type: {
-        populate: "*"
+        populate: "*",
       },
       gender: {
         populate: "*",
       },
       character: {
         populate: "*",
-      }
+      },
     },
   });
 

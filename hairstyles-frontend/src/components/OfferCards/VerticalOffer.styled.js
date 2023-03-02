@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { device } from "../../styles/device";
 
-export const Container = styled.div`
+export const ContainerVertical = styled.div`
   border-radius: 6px;
   border: 1px solid #bcc1ca;
 
@@ -12,7 +12,7 @@ export const Container = styled.div`
     max-width: 277px;
   }
   :hover {
-    border-color: #41b029;
+    border-color: #2082eb;
   }
   .imageWrapper {
     position: relative;
@@ -63,12 +63,16 @@ export const Container = styled.div`
     .description {
       display: none;
       @media ${device.tablet} {
-        display: block;
+        /* display: block; */
         max-width: 100%;
         overflow: hidden;
         font-size: 12px;
         color: #9095a0;
-        height: 30px;
+        /* height: 30px; */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        white-space: pre-wrap;
       }
     }
     .priceWrapper {
@@ -90,12 +94,33 @@ export const Container = styled.div`
         color: #9095a0;
         text-decoration: line-through;
         font-style: italic;
-          font-size: 16px;
+        font-size: 16px;
         @media ${device.mobileL} {
           font-size: 12px;
         }
         @media ${device.tablet} {
           font-size: 18px;
+        }
+      }
+      .removeFromCartButton {
+        display: none;
+        @media ${device.tablet} {
+          border-radius: 50%;
+          border: 1px solid #30821d;
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: auto;
+          transition: 0.2s background-color;
+          background-color: #3c9f25;
+          :hover {
+            background-color: #30821d;
+          }
+          :hover img {
+            filter: brightness(0) invert(1);
+          }
         }
       }
       .addToCartButton {

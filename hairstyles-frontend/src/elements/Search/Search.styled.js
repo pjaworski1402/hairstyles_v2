@@ -13,6 +13,7 @@ export const Container = styled.div`
   position:relative;
   .hints{
     position:absolute;
+    z-index: 1;
     top: 36px;
     left:0;
     width: 100%;

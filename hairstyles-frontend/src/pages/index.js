@@ -10,12 +10,15 @@ import {
   Offers,
 } from "../styles/pages/Home.styled";
 import CategoryCircle from "../components/CategoryCircle/CategoryCircle";
-import VerticalOffer from "../components/OfferCards/VerticalOffer";
-import HorizontalOffer from "../components/OfferCards/HorizontalOffer";
+import Link from "next/link";
+import Image from "next/image";
+import arrowRightIco from "../static/icons/arrowRight.svg"
+import OfferCard from "../components/OfferCards/OfferCard";
 
 // import Seo from "../components/SEO/SEO";
 
 export default function Home(props) {
+  console.log(props)
   return (
     <Layout>
       <Container>
@@ -45,11 +48,77 @@ export default function Home(props) {
         <Wrapper>
           <div className="container">
             <Offers>
-              <h3>Last added</h3>
+              <h3>Last added
+                <Link href={`/results`}>
+                  <a className="showMoreTop">
+                    Show more
+                  </a>
+                </Link>
+              </h3>
               <div className="offerWrapper">
                 {props.products.last.map((product, index) => {
-                  return <VerticalOffer key={product.id} product={product} />;
+                  return <OfferCard key={`last_${product.id}`} product={product} />;
                 })}
+                <Link href={`/results`}>
+                  <a className="showMoreBottom">
+                    <Image src={arrowRightIco} alt="arrowRight" width={16} height={16} />
+                    Show more offers
+                  </a>
+                </Link>
+              </div>
+              <h3>Clothes
+                <Link href={`/results?type=["top","dress","bottom","hat","shoes","accessories"]&price=[1,200]`}>
+                  <a className="showMoreTop">
+                    Show more
+                  </a>
+                </Link>
+              </h3>
+              <div className="offerWrapper">
+                {props.products.clothes.map((product, index) => {
+                  return <OfferCard key={`clothes_${product.id}`} product={product} />;
+                })}
+                <Link href={`/results?type=["top","dress","bottom","hat","shoes","accessories"]&price=[1,200]`}>
+                  <a className="showMoreBottom">
+                    <Image src={arrowRightIco} alt="arrowRight" width={16} height={16} />
+                    Show more offers
+                  </a>
+                </Link>
+              </div>
+              <h3>Hairstyles
+                <Link href={`/results?type=["long","medium","short"]&price=[1,200]`}>
+                  <a className="showMoreTop">
+                    Show more
+                  </a>
+                </Link>
+              </h3>
+              <div className="offerWrapper">
+                {props.products.hairstyles.map((product, index) => {
+                  return <OfferCard key={`hairstyles_${product.id}`} product={product} />;
+                })}
+                <Link href={`/results?type=["long","medium","short"]&price=[1,200]`}>
+                  <a className="showMoreBottom">
+                    <Image src={arrowRightIco} alt="arrowRight" width={16} height={16} />
+                    Show more offers
+                  </a>
+                </Link>
+              </div>
+              <h3>Peds
+                <Link href={`/results?type=["ped","baby","child1","child2","teen","adult","other"]&price=[1,200]`}>
+                  <a className="showMoreTop">
+                    Show more
+                  </a>
+                </Link>
+              </h3>
+              <div className="offerWrapper">
+                {props.products.peds.map((product, index) => {
+                  return <OfferCard key={`peds_${product.id}`} product={product} />;
+                })}
+                <Link href={`/results?type=["ped","baby","child1","child2","teen","adult","other"]&price=[1,200]`}>
+                  <a className="showMoreBottom">
+                    <Image src={arrowRightIco} alt="arrowRight" width={16} height={16} />
+                    Show more offers
+                  </a>
+                </Link>
               </div>
             </Offers>
           </div>
@@ -89,6 +158,9 @@ export async function getStaticProps() {
       tags: {
         populate: "*",
       },
+      gender: {
+        populate: "*"
+      },
       type: {
         populate: "*"
       },
@@ -96,6 +168,100 @@ export async function getStaticProps() {
         populate: "*",
       }
     },
+    pagination: {
+      start: 0,
+      limit: 4
+    }
+  });
+  const productClothes = await fetchAPI("/products", {
+    populate: {
+      gallery: {
+        populate: "*",
+      },
+      tags: {
+        populate: "*",
+      },
+      gender: {
+        populate: "*"
+      },
+      type: {
+        populate: "*"
+      },
+      character: {
+        populate: "*",
+      }
+    },
+    filters: {
+      type: {
+        category: {
+          name: { $in: ['clothes'] }
+        }
+      },
+    },
+    pagination: {
+      start: 0,
+      limit: 4
+    }
+  });
+  const productHairstyles = await fetchAPI("/products", {
+    populate: {
+      gallery: {
+        populate: "*",
+      },
+      tags: {
+        populate: "*",
+      },
+      gender: {
+        populate: "*"
+      },
+      type: {
+        populate: "*"
+      },
+      character: {
+        populate: "*",
+      }
+    },
+    filters: {
+      type: {
+        category: {
+          name: { $in: ['hairstyles'] }
+        }
+      },
+    },
+    pagination: {
+      start: 0,
+      limit: 4
+    }
+  });
+  const productPeds = await fetchAPI("/products", {
+    populate: {
+      gallery: {
+        populate: "*",
+      },
+      tags: {
+        populate: "*",
+      },
+      gender: {
+        populate: "*"
+      },
+      type: {
+        populate: "*"
+      },
+      character: {
+        populate: "*",
+      }
+    },
+    filters: {
+      type: {
+        category: {
+          name: { $in: ['peds'] }
+        }
+      },
+    },
+    pagination: {
+      start: 0,
+      limit: 4
+    }
   });
   return {
     props: {
@@ -106,6 +272,9 @@ export async function getStaticProps() {
       categoryCircles: categoryCircles.data,
       products: {
         last: productLast.data,
+        clothes: productClothes.data,
+        hairstyles: productHairstyles.data,
+        peds: productPeds.data
       },
     },
   };

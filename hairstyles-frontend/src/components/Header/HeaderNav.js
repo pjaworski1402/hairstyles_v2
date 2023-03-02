@@ -32,7 +32,7 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
   };
   useEffect(() => {
     setLengthCart(cart.length);
-  })
+  });
 
   return (
     <Container>
@@ -67,21 +67,18 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
           <SearchWrapper>
             <Search />
           </SearchWrapper>
-          <Link href={`/fav`}>
+          {/* <Link href={`/fav`}>
             <a>
               <Image src={heart} height={24} width={24} />
             </a>
-          </Link>
+          </Link> */}
           <Link href={`/cart`}>
             <a>
               <div className="cartLength">
                 <Image src={shoppingCart} height={24} width={24} />
                 {lengthCart ? (
-                  <div className="cartLengthValue">
-                    {lengthCart}
-                  </div>
+                  <div className="cartLengthValue">{lengthCart}</div>
                 ) : null}
-
               </div>
             </a>
           </Link>
