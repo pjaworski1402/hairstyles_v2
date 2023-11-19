@@ -25,3 +25,9 @@ export const removeFromLocalCart = (productSlug) => {
         }
     }
 }
+
+export const clearLocalCart = () => {
+    if (typeof window !== "undefined") {
+        localStorage.removeItem("cart");
+    }
+}

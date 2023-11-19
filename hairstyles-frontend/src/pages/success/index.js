@@ -8,6 +8,8 @@ import { API_URL } from '../../utilities/urls'
 import doneImg from "../../static/icons/done.svg"
 import { Container } from "../../styles/pages/Success.styled"
 import homeIco from "../../static/icons/home.svg"
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../redux/cart.slice";
 
 const useOrder = (session_id) => {
     const [order, setOrder] = useState(null)
@@ -43,6 +45,10 @@ export default function Success() {
     const router = useRouter()
     const { session_id } = router.query
     const { order, loading } = useOrder(session_id)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(clearCart());
+    }, [dispatch])
     return (
         <Layout>
             <Container className='container'>
@@ -52,19 +58,21 @@ export default function Success() {
                 <h2 className='orderSuccess'>Order placed successfully!</h2>
                 {loading && <p className='orderStatus'>We're confirming your purchase!</p>}
                 {!loading && order && (
-                    <p className='orderStatus'>Check your email. All files should be waiting for you!</p>
+                    <>
+                        <p className='orderStatus'>Check your email. All files should be waiting for you!</p>
+                        <div className='summary'>
+                            <div className='summaryRow'>
+                                <div className='summaryTitle'>Date</div> <div className='summaryValue'>{new Date(order?.data?.createdAt).toLocaleDateString()}</div>
+                            </div>
+                            <div className='summaryRow'>
+                                <div className='summaryTitle'>Email</div> <div className='summaryValue'>{order?.data?.email}</div>
+                            </div>
+                            <div className='summaryRow'>
+                                <div className='summaryTitle'>Total</div> <div className='summaryValue'>${order?.data?.total}</div>
+                            </div>
+                        </div>
+                    </>
                 )}
-                <div className='summary'>
-                    <div className='summaryRow'>
-                        <div className='summaryTitle'>Date</div> <div className='summaryValue'>{new Date(order?.data?.createdAt).toLocaleDateString()}</div>
-                    </div>
-                    <div className='summaryRow'>
-                        <div className='summaryTitle'>Email</div> <div className='summaryValue'>{order?.data?.email}</div>
-                    </div>
-                    <div className='summaryRow'>
-                        <div className='summaryTitle'>Total</div> <div className='summaryValue'>${order?.data?.total}</div>
-                    </div>
-                </div>
                 <Link href={"/"}>
                     <a className="backHome">
                         <div className='backHomeWrapper'>

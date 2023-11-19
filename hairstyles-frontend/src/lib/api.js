@@ -21,7 +21,6 @@ export async function fetchAPI(path, urlParamsObject = {}, options = {}, isNotLo
   const requestUrl = `${getStrapiURL(
     `/api${path}${queryString ? `?${queryString}` : ""}`, isNotLocal
   )}`;
-  console.log(requestUrl)
   const response = await fetch(requestUrl, mergedOptions).then((res) => {
     if (!res.ok) {
       console.error(res.statusText);
