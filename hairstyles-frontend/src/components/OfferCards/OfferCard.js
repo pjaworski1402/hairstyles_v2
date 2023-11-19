@@ -15,7 +15,7 @@ const OfferCard = ({ product, display = "vertical" }) => {
   const [isInCart, setIsInCart] = useState();
   const { attributes: offer } = product;
   const image = getStrapiMedia(offer.gallery);
-  const imageData = offer.gallery.data[0].attributes;
+  const imageData = offer.gallery?.data && offer.gallery?.data[0]?.attributes;
   const dispatch = useDispatch();
   useEffect(() => {
     setIsInCart(cart.includes(offer.slug));
@@ -31,17 +31,19 @@ const OfferCard = ({ product, display = "vertical" }) => {
   };
   if (display === "horizontal") {
     return (
-      <ContainerHorizontal className="productHorizontal">
+      <ContainerHorizontal className="productHorizontal" isInCart={isInCart}>
         <Link href={`/product/${offer.slug}`}>
           <a>
             <div className="imageWrapper">
-              <Image
-                src={image[0]}
-                loader={() => image[0]}
-                width={imageData.width}
-                height={imageData.height}
-                unoptimized
-              />
+              {imageData &&
+                <Image
+                  src={image[0]}
+                  loader={() => image[0]}
+                  width={imageData.width}
+                  height={imageData.height}
+                  unoptimized
+                />
+              }
             </div>
             <div className="offerWrapper">
               <div className="offerTitle">{offer.title}</div>
@@ -52,7 +54,7 @@ const OfferCard = ({ product, display = "vertical" }) => {
                 }{" "}
                 | {offer?.character?.data?.attributes?.name}{" "}
                 {offer?.gender?.data?.attributes?.name} |{" "}
-                {offer?.color_variants} textures
+                {offer?.color_variants} {offer?.color_variants > 1 ? "textures" : "texture"}
               </div>
               <div className="description">{offer.description}</div>
               <div className="priceWrapper">
@@ -101,19 +103,19 @@ const OfferCard = ({ product, display = "vertical" }) => {
     );
   } else {
     return (
-      <ContainerVertical className="productVertical">
+      <ContainerVertical className="productVertical" isInCart={isInCart}>
         <Link href={`/product/${offer.slug}`}>
           <a>
             <div className="imageWrapper">
               <Image
                 src={image[0]}
                 loader={() => image[0]}
-                width={imageData.width}
-                height={imageData.height}
+                width={imageData?.width}
+                height={imageData?.height}
                 unoptimized
               />
             </div>
-            <div className="offerWrapper">
+            <div className="offerWrapperInfo">
               <div className="offerTitle">{offer.title}</div>
               <div className="tags">
                 {
@@ -122,7 +124,7 @@ const OfferCard = ({ product, display = "vertical" }) => {
                 }{" "}
                 | {offer?.character?.data?.attributes?.name}{" "}
                 {offer?.gender?.data?.attributes?.name} |{" "}
-                {offer?.color_variants} textures
+                {offer?.color_variants} {offer?.color_variants > 1 ? "textures" : "texture"}
               </div>
               <div className="description">{offer.description}</div>
               <div className="priceWrapper">

@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import { fetchAPI } from "../../lib/api";
-import { getStrapiMedia } from "../../lib/media";
+import { useEffect } from "react";
 
-const Product = ({ product, categories }) => {
+const Product = () => {
   const router = useRouter();
-  const { pid } = router.query;
-
-  return <>produkty</>;
+  useEffect(() => {
+    router.push("/results")
+  }, [router])
+  return <>loading</>;
 };
 
 export default Product;

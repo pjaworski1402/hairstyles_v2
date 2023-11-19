@@ -23,7 +23,7 @@ const CartOffer = ({ offer, removeProduct }) => {
           {offer?.type?.data?.attributes?.category?.data?.attributes?.name} |{" "}
           {offer?.character?.data?.attributes?.name}{" "}
           {offer?.gender?.data?.attributes?.name} | {offer?.color_variants}{" "}
-          textures
+          {offer?.color_variants > 1 ? "textures" : "texture"}
         </div>
         <div className="price">${offer.price}</div>
       </div>

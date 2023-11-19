@@ -45,10 +45,17 @@ export const Container = styled.div`
     font-size: 16px;
     left: 50%;
     transform: translateX(-50%);
+    @media ${device.tablet} {
+      font-size: 32px;
+      font-weight: 600;
+    }
   }
   .imageWrapper {
     position: absolute;
     bottom: 32px;
+    @media ${device.tablet} {
+      bottom: 48px;
+    }
     span,
     img {
     }

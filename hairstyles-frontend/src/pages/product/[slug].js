@@ -19,6 +19,7 @@ import OfferAttributes from "../../components/OfferAttributes/OfferAttributes";
 import { useState } from "react";
 import { addToCart, removeFromCart } from "../../redux/cart.slice";
 import { useEffect } from "react";
+import { message } from 'antd';
 
 const Product = ({ product }) => {
   const cart = useSelector((state) => state.cart);
@@ -41,6 +42,19 @@ const Product = ({ product }) => {
     setIsInCart(cart.includes(slug));
   });
 
+  const handleClickShare = () => {
+    const linkToCopy = window?.location?.href;
+    if (linkToCopy) {
+      const textarea = document.createElement('textarea');
+      textarea.value = linkToCopy;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      message.success('Link has been copied to the clipboard!', 5);
+    }
+  }
+
   return (
     <Layout>
       <Container className="container">
@@ -50,8 +64,8 @@ const Product = ({ product }) => {
         {/* DESKTOP */}
         <DesktopContentOffer className="container">
           <div className="headerWrapper">
-            <button className="shareButton">
-              <Image src={shareIco} width={20} height={20} />
+            <button className="shareButton" onClick={handleClickShare}>
+              <Image alt="shareIco" src={shareIco} width={20} height={20} />
               Share
             </button>
           </div>
@@ -61,7 +75,7 @@ const Product = ({ product }) => {
           <div className="productInfo">
             <div className="title">{product.title}</div>
             <div className="priceWrapper">
-              <div className="priceTitle">Price</div>
+              <div className="priceTitle">Price:</div>
               <div className="price">${product.price}</div>
               {product.old_price > product.price && (
                 <div className="oldPrice">${product.old_price}</div>
@@ -106,14 +120,30 @@ const Product = ({ product }) => {
 };
 
 export async function getStaticPaths() {
-  const productsRes = await fetchAPI("/products", {
-    fields: ["slug"],
-    pagination: {
-      limit: -1,
-    },
-  });
+  const limit = 100;
+  let currentPage = 1;
+  let allProducts = [];
+
+  while (true) {
+    const productsRes = await fetchAPI("/products", {
+      fields: ["slug"],
+      pagination: {
+        start: (currentPage - 1) * limit,
+        limit,
+      },
+    });
+
+    if (productsRes.data.length === 0) {
+      break;
+    }
+
+    allProducts = allProducts.concat(productsRes.data);
+
+    currentPage++;
+  }
+
   return {
-    paths: productsRes.data.map((product) => ({
+    paths: allProducts.map((product) => ({
       params: {
         slug: product.attributes.slug,
       },
@@ -135,7 +165,11 @@ export async function getStaticProps({ params }) {
         populate: "*",
       },
       type: {
-        populate: "*",
+        populate: {
+          category: {
+            populate: "*",
+          },
+        },
       },
       gender: {
         populate: "*",

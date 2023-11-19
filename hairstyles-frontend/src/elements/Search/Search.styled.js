@@ -10,33 +10,33 @@ export const Container = styled.div`
   height: 36px;
   display: flex;
   width: calc(100% - (36px + 12px));
-  position:relative;
-  .hints{
-    position:absolute;
+  position: relative;
+  .hints {
+    position: absolute;
     z-index: 1;
     top: 36px;
-    left:0;
+    left: 0;
     width: 100%;
     list-style: none;
     padding: 0 12px;
     padding: 12px;
     background-color: var(--primary);
     border-radius: 0 0 5px 5px;
-    &.hidden{
+    &.hidden {
       display: none;
     }
-    &.show{
+    &.show {
       display: block;
     }
-    .hint{
+    .hint {
       padding: 6px 18px;
-      border-top:1px solid rgba(0,0,0,0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
       cursor: pointer;
-      :hover{
-        background-color: rgba(0,0,0,0.1);
+      :hover {
+        background-color: rgba(0, 0, 0, 0.1);
       }
-      :first-child{
-      border-top:none;
+      :first-child {
+        border-top: none;
       }
     }
   }
@@ -45,6 +45,7 @@ export const Container = styled.div`
 export const Label = styled.label`
   display: flex;
   align-items: center;
+  width: 100%;
 `;
 
 export const Input = styled.input`

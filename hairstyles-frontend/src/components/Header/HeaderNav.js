@@ -19,6 +19,7 @@ import shoppingCart from "../../static/icons/shopping-cart.svg";
 import heart from "../../static/icons/heart.svg";
 import Search from "../../elements/Search/Search";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
   const { global, menu, desktopMenu } = useContext(GlobalContext);
@@ -27,6 +28,7 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
   const { item } = desktopMenu.attributes;
   const cart = useSelector((state) => state.cart);
   const [lengthCart, setLengthCart] = useState(0);
+  const router = useRouter();
   const handleClickMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
@@ -54,7 +56,15 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
         <DesktopNav>
           {item.map((element) => {
             return (
-              <li key={element.id}>
+              <li
+                key={element.id}
+                className={
+                  decodeURIComponent(router.asPath) ==
+                  decodeURIComponent(element.path)
+                    ? "active"
+                    : ""
+                }
+              >
                 <Link href={element.path}>{element.title}</Link>
               </li>
             );

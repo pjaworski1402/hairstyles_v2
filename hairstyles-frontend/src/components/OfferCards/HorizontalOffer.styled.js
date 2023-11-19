@@ -5,12 +5,16 @@ export const ContainerHorizontal = styled.div`
   border-bottom: 1px solid #bcc1ca;
   :last-of-type {
     border-bottom: none;
+    @media ${device.tablet} {
+      border: 1px solid #f3f4f6;
+    }
   }
   @media ${device.tablet} {
     border: 1px solid #f3f4f6;
     border-radius: 6px;
+    border: 1px solid ${({ isInCart }) => (isInCart ? "#3c9f25" : "#f3f4f6")};
     :hover {
-      border: 1px solid #2082eb;
+      border: 1px solid ${({ isInCart }) => (isInCart ? "#3c9f25" : "#2082eb")};
     }
   }
   width: 100%;
@@ -60,6 +64,7 @@ export const ContainerHorizontal = styled.div`
         max-width: 100%;
         overflow: hidden;
         height: 12px;
+        text-transform: capitalize;
         @media ${device.tablet} {
           font-size: 14px;
           height: 18px;

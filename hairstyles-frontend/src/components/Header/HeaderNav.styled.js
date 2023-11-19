@@ -59,6 +59,21 @@ export const DesktopNav = styled.ul`
     margin-left: 18px;
     li {
       margin-right: 16px;
+      &.active {
+        color: #2082eb !important;
+        font-weight: 600;
+        position: relative;
+        :after {
+          content: "";
+          position: absolute;
+          left: -6px;
+          bottom: -19px;
+          height: 4px;
+          width: calc(100% + 12px);
+          background-color: #2082eb;
+          border-radius: 2px 2px 0px 0px;
+        }
+      }
     }
   }
   @media ${device.laptopL} {
@@ -79,11 +94,11 @@ export const DesktopRight = styled.div`
       align-items: center;
       margin-left: 18px;
     }
-    .cartLength{
+    .cartLength {
       position: relative;
-      .cartLengthValue{
-        position:absolute;
-        top:-10px;
+      .cartLengthValue {
+        position: absolute;
+        top: -10px;
         right: -10px;
         background-color: var(--contrast);
         width: 20px;

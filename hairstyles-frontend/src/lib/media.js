@@ -11,7 +11,7 @@ export function getStrapiMedia(media) {
     });
     return imageUrl;
   } else {
-    url = media?.data.attributes.url;
+    url = media?.data?.attributes.url;
     imageUrl = url?.startsWith("/uploads") ? getStrapiURL(url, true) : url;
     if (imageUrl) {
       return imageUrl;

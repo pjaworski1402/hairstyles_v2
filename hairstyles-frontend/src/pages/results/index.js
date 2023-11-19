@@ -16,9 +16,10 @@ import Link from "next/link";
 import paginationIco from "../../static/icons/pagination.svg";
 import Image from "next/image";
 import OfferCard from "../../components/OfferCards/OfferCard";
+import CustomDropdown from "../../elements/Inputs/Dropdown";
 
 const client = new MeiliSearch({
-  host: "http://46.205.217.7:7700",
+  host: "http://46.205.221.77:7700",
 });
 // import Seo from "../components/SEO/SEO";
 
@@ -39,13 +40,19 @@ function getMinMax(arr) {
   // }
   return [min, max];
 }
-
+const options = [
+  { value: 'price:ASC', label: 'Price: Low to High' },
+  { value: 'price:DESC', label: 'Price: High to Low' },
+  { value: 'createdAt:DESC', label: 'Date: Newest' },
+  { value: 'createdAt:ASC', label: 'Date: Oldest' },
+];
 export default function Results(props) {
   const [products, setProducts] = useState([]);
   const router = useRouter();
   const itemsPerPage = 10;
   const currentPage = parseInt(router.query.page) || 1;
   const pages = Math.ceil(products?.meta?.pagination?.total / itemsPerPage);
+  const [sorting, setSorting] = useState(options[2].value)
   useEffect(() => {
     const { type, gender, texture, price } = router.query;
     const textureValueRange = texture
@@ -97,6 +104,7 @@ export default function Results(props) {
             start: (currentPage - 1) * itemsPerPage,
             limit: itemsPerPage,
           },
+          sort: sorting,
         },
         {},
         true
@@ -116,7 +124,8 @@ export default function Results(props) {
     } else {
       fetchProducts();
     }
-  }, [router.query]);
+  }, [router.query, sorting]);
+
   return (
     <Layout>
       <Container>
@@ -142,6 +151,10 @@ export default function Results(props) {
                 <div className="resultsInfo">
                   <div className="resultsCounter">
                     {products.meta.pagination.total} results
+                  </div>
+                  <div className="resultsSortWrapper">
+                    <div className="resultsSortText">Sort by</div>
+                    <CustomDropdown options={options} defaultValue={options[2]} onSelect={(e) => { setSorting(e.value); setProducts([]); }} />
                   </div>
                 </div>
                 <div className="offerWrapper">
@@ -195,9 +208,8 @@ export default function Results(props) {
                     )
                     .map((num) => (
                       <div
-                        className={`pageWrapper${
-                          currentPage == num + 1 ? " current" : ""
-                        }`}
+                        className={`pageWrapper${currentPage == num + 1 ? " current" : ""
+                          }`}
                         key={`page_${num}`}
                       >
                         <Link

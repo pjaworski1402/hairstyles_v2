@@ -55,8 +55,10 @@ function MyApp({ Component, pageProps, num }) {
           icon: "*",
           types: {
             populate: "*",
+            sort: "name:asc",
           },
         },
+        sort: "name:asc",
       }, {}, true);
       setCategories(response.data);
     };

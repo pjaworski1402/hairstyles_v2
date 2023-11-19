@@ -12,13 +12,13 @@ import {
 import CategoryCircle from "../components/CategoryCircle/CategoryCircle";
 import Link from "next/link";
 import Image from "next/image";
-import arrowRightIco from "../static/icons/arrowRight.svg"
+import arrowRightIco from "../static/icons/arrowRight.svg";
 import OfferCard from "../components/OfferCards/OfferCard";
+import Search from "../elements/Search/Search";
 
 // import Seo from "../components/SEO/SEO";
 
 export default function Home(props) {
-  console.log(props)
   return (
     <Layout>
       <Container>
@@ -31,6 +31,9 @@ export default function Home(props) {
         <MobileSlider>
           <Slider slides={props.slides.mobile.attributes.slider} height={128} />
         </MobileSlider>
+        <div className="container searchWrapper">
+          <Search />
+        </div>
         <Wrapper>
           <div className="container">
             <Categories>
@@ -48,74 +51,116 @@ export default function Home(props) {
         <Wrapper>
           <div className="container">
             <Offers>
-              <h3>Last added
+              <h3>
+                Last added
                 <Link href={`/results`}>
-                  <a className="showMoreTop">
-                    Show more
-                  </a>
+                  <a className="showMoreTop">Show more</a>
                 </Link>
               </h3>
               <div className="offerWrapper">
                 {props.products.last.map((product, index) => {
-                  return <OfferCard key={`last_${product.id}`} product={product} />;
+                  return (
+                    <OfferCard key={`last_${product.id}`} product={product} />
+                  );
                 })}
                 <Link href={`/results`}>
                   <a className="showMoreBottom">
-                    <Image src={arrowRightIco} alt="arrowRight" width={16} height={16} />
+                    <Image
+                      src={arrowRightIco}
+                      alt="arrowRight"
+                      width={16}
+                      height={16}
+                    />
                     Show more offers
                   </a>
                 </Link>
               </div>
-              <h3>Clothes
-                <Link href={`/results?type=["top","dress","bottom","hat","shoes","accessories"]&price=[1,200]`}>
-                  <a className="showMoreTop">
-                    Show more
-                  </a>
+              <h3>
+                Clothes
+                <Link
+                  href={`/results?type=["top","dress","bottom","hat","shoes","accessories"]&price=[1,200]`}
+                >
+                  <a className="showMoreTop">Show more</a>
                 </Link>
               </h3>
               <div className="offerWrapper">
                 {props.products.clothes.map((product, index) => {
-                  return <OfferCard key={`clothes_${product.id}`} product={product} />;
+                  return (
+                    <OfferCard
+                      key={`clothes_${product.id}`}
+                      product={product}
+                    />
+                  );
                 })}
-                <Link href={`/results?type=["top","dress","bottom","hat","shoes","accessories"]&price=[1,200]`}>
+                <Link
+                  href={`/results?type=["top","dress","bottom","hat","shoes","accessories"]&price=[1,200]`}
+                >
                   <a className="showMoreBottom">
-                    <Image src={arrowRightIco} alt="arrowRight" width={16} height={16} />
+                    <Image
+                      src={arrowRightIco}
+                      alt="arrowRight"
+                      width={16}
+                      height={16}
+                    />
                     Show more offers
                   </a>
                 </Link>
               </div>
-              <h3>Hairstyles
-                <Link href={`/results?type=["long","medium","short"]&price=[1,200]`}>
-                  <a className="showMoreTop">
-                    Show more
-                  </a>
+              <h3>
+                Hairstyles
+                <Link
+                  href={`/results?type=["long","medium","short"]&price=[1,200]`}
+                >
+                  <a className="showMoreTop">Show more</a>
                 </Link>
               </h3>
               <div className="offerWrapper">
                 {props.products.hairstyles.map((product, index) => {
-                  return <OfferCard key={`hairstyles_${product.id}`} product={product} />;
+                  return (
+                    <OfferCard
+                      key={`hairstyles_${product.id}`}
+                      product={product}
+                    />
+                  );
                 })}
-                <Link href={`/results?type=["long","medium","short"]&price=[1,200]`}>
+                <Link
+                  href={`/results?type=["long","medium","short"]&price=[1,200]`}
+                >
                   <a className="showMoreBottom">
-                    <Image src={arrowRightIco} alt="arrowRight" width={16} height={16} />
+                    <Image
+                      src={arrowRightIco}
+                      alt="arrowRight"
+                      width={16}
+                      height={16}
+                    />
                     Show more offers
                   </a>
                 </Link>
               </div>
-              <h3>Peds
-                <Link href={`/results?type=["ped","baby","child1","child2","teen","adult","other"]&price=[1,200]`}>
-                  <a className="showMoreTop">
-                    Show more
-                  </a>
+              <h3>
+                Peds
+                <Link
+                  href={`/results?type=["ped","baby","child1","child2","teen","adult","other"]&price=[1,200]`}
+                >
+                  <a className="showMoreTop">Show more</a>
                 </Link>
               </h3>
               <div className="offerWrapper">
                 {props.products.peds.map((product, index) => {
-                  return <OfferCard key={`peds_${product.id}`} product={product} />;
+                  return (
+                    <OfferCard key={`peds_${product.id}`} product={product} />
+                  );
                 })}
-                <Link href={`/results?type=["ped","baby","child1","child2","teen","adult","other"]&price=[1,200]`}>
+                <Link
+                  href={`/results?type=["ped","baby","child1","child2","teen","adult","other"]&price=[1,200]`}
+                >
                   <a className="showMoreBottom">
-                    <Image src={arrowRightIco} alt="arrowRight" width={16} height={16} />
+                    <Image
+                      src={arrowRightIco}
+                      alt="arrowRight"
+                      width={16}
+                      height={16}
+                    />
                     Show more offers
                   </a>
                 </Link>
@@ -159,19 +204,20 @@ export async function getStaticProps() {
         populate: "*",
       },
       gender: {
-        populate: "*"
+        populate: "*",
       },
       type: {
-        populate: "*"
+        populate: "*",
       },
       character: {
         populate: "*",
-      }
+      },
     },
     pagination: {
       start: 0,
-      limit: 4
-    }
+      limit: 4,
+    },
+    sort: "createdAt:desc",
   });
   const productClothes = await fetchAPI("/products", {
     populate: {
@@ -182,26 +228,27 @@ export async function getStaticProps() {
         populate: "*",
       },
       gender: {
-        populate: "*"
+        populate: "*",
       },
       type: {
-        populate: "*"
+        populate: "*",
       },
       character: {
         populate: "*",
-      }
+      },
     },
     filters: {
       type: {
         category: {
-          name: { $in: ['clothes'] }
-        }
+          name: { $in: ["clothes"] },
+        },
       },
     },
     pagination: {
       start: 0,
-      limit: 4
-    }
+      limit: 4,
+    },
+    sort: "createdAt:desc",
   });
   const productHairstyles = await fetchAPI("/products", {
     populate: {
@@ -212,26 +259,27 @@ export async function getStaticProps() {
         populate: "*",
       },
       gender: {
-        populate: "*"
+        populate: "*",
       },
       type: {
-        populate: "*"
+        populate: "*",
       },
       character: {
         populate: "*",
-      }
+      },
     },
     filters: {
       type: {
         category: {
-          name: { $in: ['hairstyles'] }
-        }
+          name: { $in: ["hairstyles"] },
+        },
       },
     },
     pagination: {
       start: 0,
-      limit: 4
-    }
+      limit: 4,
+    },
+    sort: "createdAt:desc",
   });
   const productPeds = await fetchAPI("/products", {
     populate: {
@@ -242,26 +290,27 @@ export async function getStaticProps() {
         populate: "*",
       },
       gender: {
-        populate: "*"
+        populate: "*",
       },
       type: {
-        populate: "*"
+        populate: "*",
       },
       character: {
         populate: "*",
-      }
+      },
     },
     filters: {
       type: {
         category: {
-          name: { $in: ['peds'] }
-        }
+          name: { $in: ["peds"] },
+        },
       },
     },
     pagination: {
       start: 0,
-      limit: 4
-    }
+      limit: 4,
+    },
+    sort: "createdAt:desc",
   });
   return {
     props: {
@@ -274,7 +323,7 @@ export async function getStaticProps() {
         last: productLast.data,
         clothes: productClothes.data,
         hairstyles: productHairstyles.data,
-        peds: productPeds.data
+        peds: productPeds.data,
       },
     },
   };

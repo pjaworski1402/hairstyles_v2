@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Search from '../../../elements/Search/Search';
 import filtersIco from "../../../static/icons/filters.svg"
 
-const SearchMobile = ({ isMenuOpen }) => {
+const SearchMobile = ({ isMenuOpen, setIsFiltersOpen }) => {
     const [showSearch, setShowSearch] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const searchRef = useRef(null)

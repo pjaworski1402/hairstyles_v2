@@ -11,9 +11,8 @@ import youtubeImg from "../../static/images/youtube.svg";
 import instagramImg from "../../static/images/instagram.svg";
 
 const Footer = () => {
-  const { global, menu, desktopMenu } = useContext(GlobalContext);
+  const { global } = useContext(GlobalContext);
   const { logo, siteName } = global.attributes;
-  console.log(global);
   return (
     <Container>
       <div className="wrapper container">
@@ -80,19 +79,19 @@ const Footer = () => {
         <div className="copyright">
           © 2020-2023 hairstyles-gta5.com • Site created by Piotr Jaworski
           <div className="contact">
-            <a href={global.attributes.discordLink}>
+            <a target="_blank" href={global.attributes.discordLink} rel="noreferrer">
               <Image src={discordImg} width={20} height={20} />
             </a>
-            <a href={global.attributes.email}>
+            <a type="email" href={`mailto:${global.attributes.email}`}>
               <Image src={mailImg} width={20} height={20} />
             </a>
-            <a href={global.attributes.facebookLink}>
+            <a target="_blank" href={global.attributes.facebookLink} rel="noreferrer">
               <Image src={facebookImg} width={20} height={20} />
             </a>
-            <a href={global.attributes.youtubeLink}>
+            <a target="_blank" href={global.attributes.youtubeLink} rel="noreferrer">
               <Image src={youtubeImg} width={20} height={20} />
             </a>
-            <a href={global.attributes.instagramLink}>
+            <a target="_blank" href={global.attributes.instagramLink} rel="noreferrer">
               <Image src={instagramImg} width={20} height={20} />
             </a>
           </div>

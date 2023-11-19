@@ -15,7 +15,6 @@ const Filters = (props) => {
     const [priceMin, setPriceMin] = useState(1);
     const [priceMax, setPriceMax] = useState(200);
     const router = useRouter();
-
     const generateLink = () => {
         let link = "/results?";
         const filtersObject = filters.reduce((acc, filter) => {
@@ -68,7 +67,7 @@ const Filters = (props) => {
             }
         });
         setFilters(defaultFilter)
-    }, []);
+    }, [router]);
     return (<Container>
         <div className='header'>
             <div className='title'>Filters</div>
@@ -88,14 +87,16 @@ const Filters = (props) => {
                         </div>
                         <div className='subFilters'>
                             {category.attributes.types.data.map((type, j) => (
-                                <div className='filter' key={type.attributes.name + j} style={{ marginLeft: "12px" }}>
-                                    <Checkbox
-                                        checked={filters.includes(`type=${type.attributes.name}`)}
-                                        onClick={() => handleCheckboxChange(`type=${type.attributes.name}`)}
-                                    >
-                                        {type.attributes.name}
-                                    </Checkbox>
-                                </div>
+                                type.attributes.name !== "ped" && (
+                                    <div className='filter' key={type.attributes.name + j} style={{ marginLeft: "12px" }}>
+                                        <Checkbox
+                                            checked={filters.includes(`type=${type.attributes.name}`)}
+                                            onClick={() => handleCheckboxChange(`type=${type.attributes.name}`)}
+                                        >
+                                            {type.attributes.name}
+                                        </Checkbox>
+                                    </div>
+                                )
                             ))}
                         </div>
                     </React.Fragment>
@@ -132,7 +133,7 @@ const Filters = (props) => {
                             checked={filters.includes("texture=2-3")}
                             onClick={() => handleCheckboxChange("texture=2-3")}
                         >
-                            2-3 texture
+                            2-3 textures
                         </Checkbox>
                     </div>
                     <div className='filter'>
@@ -140,7 +141,7 @@ const Filters = (props) => {
                             checked={filters.includes("texture=4-10")}
                             onClick={() => handleCheckboxChange("texture=4-10")}
                         >
-                            4-10 texture
+                            4-10 textures
                         </Checkbox>
                     </div>
                     <div className='filter'>
@@ -148,7 +149,7 @@ const Filters = (props) => {
                             checked={filters.includes("texture=11-99")}
                             onClick={() => handleCheckboxChange("texture=11-99")}
                         >
-                            11+ texture
+                            11+ textures
                         </Checkbox>
                     </div>
                 </div>

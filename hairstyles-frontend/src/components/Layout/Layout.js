@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
       <Seo />
       {isFiltersOpen && <Filters setIsFiltersOpen={setIsFiltersOpen} />}
       <HeaderNav setMenuOpen={setMenuOpen} isMenuOpen={isMenuOpen} />
-      <SearchMobile isMenuOpen={isMenuOpen} />
+      <SearchMobile setIsFiltersOpen={setIsFiltersOpen} isMenuOpen={isMenuOpen} />
       {isMenuOpen ? <Menu setMenuOpenProps={setMenuOpen} /> : null}
       <Content>{children}</Content>
       <div className="footer">

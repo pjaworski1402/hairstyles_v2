@@ -10,20 +10,19 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-documentation": "^4.3.8",
-    "@strapi/plugin-i18n": "4.3.8",
-    "@strapi/plugin-users-permissions": "4.3.8",
-    "@strapi/strapi": "4.3.8",
+    "@strapi/plugin-documentation": "^4.7.0",
+    "@strapi/plugin-i18n": "4.7.0",
+    "@strapi/plugin-users-permissions": "4.7.0",
+    "@strapi/strapi": "4.7.0",
     "mysql": "2.18.1",
-    "nodemailer": "^6.9.0",
-    "strapi-plugin-comments": "^2.1.8",
-    "strapi-plugin-meilisearch": "^0.7.1",
+    "nodemailer": "^6.9.1",
+    "strapi-plugin-comments": "^1.0.4",
+    "strapi-plugin-meilisearch": "^0.9.1",
     "strapi-plugin-todo": "^0.0.9",
-    "strapi-stripe": "^2.5.1",
-    "stripe": "^10.17.0"
+    "stripe": "^11.12.0"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Piotr Jaworski"
   },
   "strapi": {
     "uuid": "c3b8a2f7-1620-4d90-bed0-0eeb08cfec0b"

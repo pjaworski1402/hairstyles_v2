@@ -26,7 +26,7 @@ const Refund = () => {
         <a href="mailto:hairstyles.gta5@gmail.com">hairstyles.gta5@gmail.com</a>{" "}
         or discord -{" "}
         <a
-          href="https://discord.com/invite/NJcfymTPs7"
+          href="https://discord.gg/Vy39QnYU7C"
           target="_blank"
           rel="noreferrer"
         >

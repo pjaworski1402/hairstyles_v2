@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import useOutsideClick from "../../hooks/useOutsideClick";
 
 const client = new MeiliSearch({
-  host: "http://46.205.217.7:7700",
+  host: "http://46.205.221.77:7700",
 });
 
 const Search = (props) => {
@@ -72,7 +72,7 @@ const Search = (props) => {
     });
   };
   return (
-    <Container ref={searchRef}>
+    <Container ref={searchRef} className="searchContainer">
       <Label>
         <Image src={searchIco} width={16} height={16} />
         <Input
@@ -87,9 +87,8 @@ const Search = (props) => {
         />
       </Label>
       <ul
-        className={`hints ${
-          hintsIsOpen && products.length > 0 ? "show" : "hidden"
-        }`}
+        className={`hints ${hintsIsOpen && products.length > 0 ? "show" : "hidden"
+          }`}
       >
         {products.map((title) => (
           <li
