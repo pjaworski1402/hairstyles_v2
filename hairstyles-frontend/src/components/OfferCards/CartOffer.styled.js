@@ -6,14 +6,14 @@ export const Container = styled.div`
   gap: 20px;
   border-bottom: 1px solid #f3f4f6;
   @media ${device.tablet} {
-    border: 1px solid #f3f4f6;
+    border: ${({ isDiscount }) => isDiscount ? "1px solid #41B029" : "1px solid #f3f4f6"};
     padding-right: 16px;
     border-radius: 6px;
   }
   :last-child {
     border: none;
     @media ${device.tablet} {
-      border: 1px solid #f3f4f6;
+      border: ${({ isDiscount }) => isDiscount ? "1px solid #41B029" : "1px solid #f3f4f6"};
       padding-right: 16px;
       border-radius: 6px;
     }
@@ -55,6 +55,11 @@ export const Container = styled.div`
     .price {
       font-size: 16px;
       color: #323842;
+      .oldPrice{
+          font-size:13px;
+          color:red;
+          text-decoration:line-through;
+        }
       @media ${device.tablet} {
         display: none;
       }
@@ -76,6 +81,11 @@ export const Container = styled.div`
       display: none;
       @media ${device.tablet} {
         display: block;
+        .oldPrice{
+          font-size:13px;
+          color:red;
+          text-decoration:line-through;
+        }
       }
     }
     .quantity {

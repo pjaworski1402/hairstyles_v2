@@ -3,11 +3,12 @@ import { getStrapiMedia } from "../../lib/media";
 import { Container } from "./CartOffer.styled";
 import trash from "../../static/icons/trash.svg";
 
-const CartOffer = ({ offer, removeProduct }) => {
+const CartOffer = ({ offer, removeProduct, discount }) => {
+  const isDiscount = !!discount
   const image = getStrapiMedia(offer.gallery);
   const imageData = offer.gallery.data[0].attributes;
   return (
-    <Container>
+    <Container isDiscount={isDiscount}>
       <div className="thumbnail">
         <Image
           src={image[0]}
@@ -25,10 +26,25 @@ const CartOffer = ({ offer, removeProduct }) => {
           {offer?.gender?.data?.attributes?.name} | {offer?.color_variants}{" "}
           {offer?.color_variants > 1 ? "textures" : "texture"}
         </div>
-        <div className="price">${offer.price}</div>
+        <div className="price">
+          {isDiscount ? (<>
+            <span className="oldPrice">${offer.price.toFixed(2)}</span>{" "}
+            <span className="newPrice">${discount.price.toFixed(2)}</span>
+          </>) : (
+            <>${offer.price.toFixed(2)}</>
+          )}
+        </div>
       </div>
       <div className="endWrapper">
-        <div className="priceDesktop">${offer.price}</div>
+        <div className="priceDesktop">
+          {isDiscount ? (<>
+            <span className="oldPrice">${offer.price.toFixed(2)}</span>{" "}
+            <span className="newPrice">${discount.price.toFixed(2)}</span>
+          </>) : (
+            <>${offer.price.toFixed(2)}</>
+          )}
+
+        </div>
         <button onClick={() => removeProduct(offer)}>
           <Image src={trash} width={24} height={24} />
         </button>

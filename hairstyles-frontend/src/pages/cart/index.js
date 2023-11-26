@@ -1,4 +1,4 @@
-import { Container, BottomWrapper } from "../../styles/pages/Cart.styled";
+import { Container, BottomWrapper, InputVoucher, ButtonVoucher } from "../../styles/pages/Cart.styled";
 import Layout from "../../components/Layout/Layout";
 import { fetchAPI } from "../../lib/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,16 +10,26 @@ import { removeFromCart } from "../../redux/cart.slice";
 import Image from "next/image";
 import arrowRight from "../../static/icons/arrow-next.svg";
 import stripeIco from "../../static/images/stripe.png";
-import googlePayIco from "../../static/images/googlePay.png";
-import linkPayIco from "../../static/images/linkPay.png";
+// import googlePayIco from "../../static/images/googlePay.png";
+// import linkPayIco from "../../static/images/linkPay.png";
 
 const stripePromise = loadStripe(
   `pk_test_51M48txJbvSFyUq8IKOyqyNuANXMw7O22W0jYLUvraG6MSNHqjrTfJ2wp89CFeSYpDFQwoFdt52o1LmRtdmvhvJd400NIHoixad`
 );
 
+const voucherMess = {
+  correct: ["Voucher activated!", true],
+  incorrect: ["Voucher is not valid!", false],
+}
+
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [products, setProducts] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [voucherCode, setVoucherCode] = useState("");
+  const [discountedOffers, setDiscountedOffers] = useState([]);
+  const [voucherStatus, setVoucherStatus] = useState(false);
+  const [selectedVoucher, setSelectedVocuher] = useState("")
   const dispatch = useDispatch();
 
   const productsRes = fetchAPI(
@@ -58,6 +68,7 @@ const Cart = () => {
       productsRes
         .then((res) => {
           setProducts(res.data);
+          setIsLoading(false)
         })
         .catch((err) => console.log(err));
     } else {
@@ -91,59 +102,204 @@ const Cart = () => {
   };
   const getTotalPrice = () => {
     if (products) {
-      const totalprice = products.reduce((accumulator, product) => {
+      const subTotal = products.reduce((accumulator, product) => {
         return accumulator + product.attributes.price;
       }, 0);
-      return totalprice;
+      const totalPrice = products.reduce((accumulator, product) => {
+        const discountedOffer = discountedOffers.find(
+          (offer) => offer.id === product.id
+        );
+        const discount = discountedOffer || product;
+        return accumulator + discount.attributes.price;
+      }, 0);
+      return { totalprice: totalPrice.toFixed(2), subTotal: subTotal.toFixed(2) };
     }
     return 0;
   };
+  const checkVoucher = () => {
+    setSelectedVocuher(voucherCode)
+    fetchAPI("/promo-codes", {
+      filters: {
+        code: voucherCode,
+      },
+      populate: {
+        products: {
+          populate: "*",
+        },
+        tags: {
+          populate: "*",
+        },
+        types: {
+          populate: "*",
+        },
+      },
+    }, null, true).then((res) => {
+      try {
+        if (res?.data.length > 0) {
+          const { products: voucherProducts, tags: voucherTags, types: voucherTypes, discountPercentage } = res.data[0]?.attributes
+          // Get ids voucher
+          const voucherProductsIds = voucherProducts.data.map(({ id }) => id)
+          const voucherTagsIds = voucherTags.data.map(({ id }) => id)
+          const voucherTypesIds = voucherTypes.data.map(({ id }) => id)
+
+          setDiscountedOffers(findMatchingProducts(voucherProductsIds, voucherTagsIds, voucherTypesIds, products, discountPercentage))
+          setVoucherStatus(voucherMess.correct)
+        } else {
+          setDiscountedOffers(findMatchingProducts([], [], [], [], 0))
+          setVoucherStatus(voucherMess.incorrect)
+        }
+      } catch (error) {
+        console.log(error)
+        setVoucherStatus(voucherMess.incorrect)
+      }
+
+    })
+  }
+  const findMatchingProducts = (voucherProductsIds, voucherTagsIds, voucherTypesIds, products, discountPercentage) => {
+    const matchingProducts = [];
+
+    products.forEach(product => {
+      const { id, attributes } = product;
+      const { tags, type, price } = attributes;
+
+      let discountedPrice = price;
+
+      if (voucherProductsIds.includes(id)) {
+        // Jeśli produkt pasuje do kuponu, obniż cenę o określony procent
+        discountedPrice -= (discountedPrice * discountPercentage) / 100;
+        // Zaokrągl cenę do dwóch miejsc po przecinku
+        discountedPrice = Math.round(discountedPrice * 100) / 100;
+        matchingProducts.push({ ...product, attributes: { ...attributes, price: discountedPrice } });
+      } else if (tags && tags.data.some(tag => voucherTagsIds.includes(tag.id))) {
+        // Jeśli tag produktu pasuje do kuponu, obniż cenę o określony procent
+        discountedPrice -= (discountedPrice * discountPercentage) / 100;
+        // Zaokrągl cenę do dwóch miejsc po przecinku
+        discountedPrice = Math.round(discountedPrice * 100) / 100;
+        matchingProducts.push({ ...product, attributes: { ...attributes, price: discountedPrice } });
+      } else if (type && voucherTypesIds.includes(type.data.id)) {
+        // Jeśli typ produktu pasuje do kuponu, obniż cenę o określony procent
+        discountedPrice -= (discountedPrice * discountPercentage) / 100;
+        // Zaokrągl cenę do dwóch miejsc po przecinku
+        discountedPrice = Math.round(discountedPrice * 100) / 100;
+        matchingProducts.push({ ...product, attributes: { ...attributes, price: discountedPrice } });
+      }
+    });
+    return matchingProducts;
+  };
+  console.log(products, discountedOffers)
+  const totalPrice = getTotalPrice()
   return (
     <Layout>
       <Container className="container">
         <h1 className="cartTitle">Order summary</h1>
         <div className="productsWrapper">
-          {products?.map((product) => (
-            <CartOffer
-              offer={product.attributes}
-              removeProduct={removeProduct}
-            />
-          ))}
-          {!products && <div>Your cart is empty</div>}
+          {isLoading ? ("Loading") : (<>
+            {products?.map((product) => {
+              // Sprawdź, czy istnieje oferta z tym samym ID w discountedOffers
+              const discountedOffer = discountedOffers.find(
+                (offer) => offer.id === product.id
+              );
+
+              // Użyj oferty z discountedOffers, jeśli istnieje, w przeciwnym razie użyj danych z products
+              const discount = discountedOffer || false;
+
+              return (
+                <CartOffer
+                  key={product.id}
+                  offer={product.attributes}
+                  removeProduct={removeProduct}
+                  discount={discount.attributes}
+                />
+              );
+            })}
+            {!products && <div>Your cart is empty</div>}
+          </>)}
         </div>
         {products && (
           <BottomWrapper>
             <div className="container">
+              <div className="voucherMobile">
+                <h3 className="totalPriceTitle">Voucher</h3>
+                <div className="totalPrice">
+                  <div className="inputVoucherWrapper">
+                    <InputVoucher isCorrect={voucherStatus && voucherStatus[1]} placeholder="Enter voucher code" value={voucherCode} onChange={(e) => setVoucherCode(e.target.value)} />
+                    {voucherStatus && (
+                      <div className={`voucherStatus${voucherStatus[1] ? "" : " incorrect"}`}>{voucherStatus[0]}</div>
+                    )}
+                  </div>
+                  <div>
+                    <ButtonVoucher onClick={checkVoucher} type="button">Apply</ButtonVoucher>
+                  </div>
+                </div>
+              </div>
+              {totalPrice.subTotal !== totalPrice.totalprice && (
+                <div className="priceDescMobile">
+                  <div className="priceDescElement">
+                    <span className="priceText">Subtotal</span>
+                    <span className="priceValue">${totalPrice.subTotal}</span>
+                  </div>
+                  <div className="priceDescElement">
+                    <span className="priceText">Discount</span>
+                    <span className="priceValue">${(totalPrice.subTotal - totalPrice.totalprice).toFixed(2)}</span>
+                  </div>
+                </div>
+              )}
               <div className="totalPrice">
                 <span className="priceText">TOTAL</span>{" "}
-                <span className="priceValue">${getTotalPrice()}</span>
+                <span className="priceValue">${totalPrice.totalprice}</span>
               </div>
               <div className="summaryDesktop">
                 <div className="paymentMethod">
                   <h3 className="paymentMethodTitle">Payment</h3>
                   <div className="paymentWrapper">
-                    <Image src={stripeIco} width={148.25} height={47} />
-                    <Image src={googlePayIco} width={67.37} height={32} />
-                    <Image src={linkPayIco} width={117.03} height={32} />
+                    <Image alt="stripeIco" src={stripeIco} width={148.25} height={47} />
+                    {/* <Image src={googlePayIco} width={67.37} height={32} /> */}
+                    {/* <Image src={linkPayIco} width={117.03} height={32} /> */}
+                  </div>
+                </div>
+                <div className="summaryTotalPrice">
+                  <h3 className="totalPriceTitle">Voucher</h3>
+                  <div className="totalPriceDesktop">
+                    <div className="inputVoucherWrapper">
+                      <InputVoucher isCorrect={voucherStatus && voucherStatus[1]} placeholder="Enter voucher code" value={voucherCode} onChange={(e) => setVoucherCode(e.target.value)} />
+                      {voucherStatus && (
+                        <div className={`voucherStatus${voucherStatus[1] ? "" : " incorrect"}`}>{voucherStatus[0]}</div>
+                      )}
+                    </div>
+                    <div>
+                      <ButtonVoucher onClick={checkVoucher} type="button">Apply</ButtonVoucher>
+                    </div>
                   </div>
                 </div>
                 <div className="summaryTotalPrice">
                   <h3 className="totalPriceTitle">Summary</h3>
+                  {totalPrice.subTotal !== totalPrice.totalprice && (
+                    <div className="priceDesc">
+                      <div className="priceDescElement">
+                        <span className="priceText">Subtotal</span>
+                        <span className="priceValue">${totalPrice.subTotal}</span>
+                      </div>
+                      <div className="priceDescElement">
+                        <span className="priceText">Discount</span>
+                        <span className="priceValue">${(totalPrice.subTotal - totalPrice.totalprice).toFixed(2)}</span>
+                      </div>
+                    </div>
+                  )}
                   <div className="totalPriceDesktop">
                     <span className="priceText">Total</span>{" "}
-                    <span className="priceValue">${getTotalPrice()}</span>
+                    <span className="priceValue priceValueTotal">${totalPrice.totalprice}</span>
                   </div>
                 </div>
               </div>
               <button className="nextButton container" onClick={handleBuy}>
                 Next
-                <Image src={arrowRight} width={20} height={20} />
+                <Image alt="nextArrow" src={arrowRight} width={20} height={20} />
               </button>
             </div>
           </BottomWrapper>
         )}
       </Container>
-    </Layout>
+    </Layout >
   );
 };
 
