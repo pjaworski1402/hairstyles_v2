@@ -24,8 +24,8 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
     async create(ctx) {
         const BASE_URL = ctx.request.headers.origin || 'http://firos:3000'
 
-        const { product } = ctx.request.body
-        console.log(product)
+        const { product, selectedVoucher } = ctx.request.body
+        // console.log(selectedVoucher)
         if (!product) {
             return ctx.send({
                 error: 'Please add a product to body'
@@ -34,30 +34,100 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
 
         const realProduct = await strapi.entityService.findMany('api::product.product', {
             filters: { id: product.id },
+            populate: {
+                tags: {
+                    populate: "*",
+                },
+                type: {
+                    populate: "*",
+                },
+                category: {
+                    populate: "*",
+                },
+            },
         });
         if (!realProduct) {
             return ctx.send({
                 error: "This product doesn't exist"
             }, 404);
         }
-        console.log(realProduct)
-        const totalPrice = realProduct.reduce((accumulator, singleProduct) => {
-            return accumulator + singleProduct.price;
+        // console.log(realProduct)
+        const realVoucher = await strapi.entityService.findMany('api::promo-code.promo-code', {
+            filters: { code: selectedVoucher },
+            populate: {
+                products: {
+                    populate: "*",
+                },
+                tags: {
+                    populate: "*",
+                },
+                types: {
+                    populate: "*",
+                },
+            },
+        });
+        // console.log(realProduct)
+        const matchingProducts = []
+        if (realVoucher.length > 0) {
+            const { products: voucherProducts, tags: voucherTags, types: voucherTypes, discountPercentage } = realVoucher[0]
+            // Get ids voucher
+            const voucherProductsIds = voucherProducts.map(({ id }) => id)
+            const voucherTagsIds = voucherTags.map(({ id }) => id)
+            const voucherTypesIds = voucherTypes.map(({ id }) => id)
+            realProduct.forEach(product => {
+                const { id, tags, type, price } = product;
+
+                let discountedPrice = price;
+
+                if (voucherProductsIds.includes(id)) {
+                    // Jeśli produkt pasuje do kuponu, obniż cenę o określony procent
+                    discountedPrice -= (discountedPrice * discountPercentage) / 100;
+                    // Zaokrągl cenę do dwóch miejsc po przecinku
+                    discountedPrice = Math.round(discountedPrice * 100) / 100;
+                    matchingProducts.push({ ...product, price: discountedPrice });
+                } else if (tags && tags.some(tag => voucherTagsIds.includes(tag.id))) {
+                    // Jeśli tag produktu pasuje do kuponu, obniż cenę o określony procent
+                    discountedPrice -= (discountedPrice * discountPercentage) / 100;
+                    // Zaokrągl cenę do dwóch miejsc po przecinku
+                    discountedPrice = Math.round(discountedPrice * 100) / 100;
+                    matchingProducts.push({ ...product, price: discountedPrice });
+                } else if (type && voucherTypesIds.includes(type.id)) {
+                    // Jeśli typ produktu pasuje do kuponu, obniż cenę o określony procent
+                    discountedPrice -= (discountedPrice * discountPercentage) / 100;
+                    // Zaokrągl cenę do dwóch miejsc po przecinku
+                    discountedPrice = Math.round(discountedPrice * 100) / 100;
+                    matchingProducts.push({ ...product, price: discountedPrice });
+                }
+            });
+        }
+        // const totalPrice = realProduct.reduce((accumulator, singleProduct) => {
+        //     return accumulator + singleProduct.price;
+        // }, 0);
+        const totalPrice = realProduct.reduce((accumulator, product) => {
+            const discountedOffer = matchingProducts.find(
+                (offer) => offer.id === product.id
+            );
+            const discount = discountedOffer || product;
+            return accumulator + discount.price;
         }, 0);
         const allIds = realProduct.map(singleProduct => singleProduct.id)
         const allTitles = realProduct.map((singleProduct, key) => `${key + 1}. ${singleProduct.title}`)
-        const allItems = realProduct.map((singleProduct, key) => (
-            {
+        const allItems = realProduct.map((singleProduct, key) => {
+            const discountedOffer = matchingProducts.find(
+                (offer) => offer.id === singleProduct.id
+            );
+            const discount = discountedOffer || singleProduct;
+            return ({
                 price_data: {
                     currency: "usd",
                     product_data: {
-                        name: singleProduct.title
+                        name: discount.title
                     },
-                    unit_amount: fromDecimalToInt(singleProduct.price),
+                    unit_amount: fromDecimalToInt(discount.price),
                 },
                 quantity: 1,
-            }
-        ))
+            })
+        })
         // console.log(allTitles)
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
@@ -66,7 +136,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             success_url: `${BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${BASE_URL}/failed?session_id={CHECKOUT_SESSION_ID}`,
         })
-        console.log("Sesja", session)
+        // console.log("Sesja", session)
         const newOrder = await strapi.entityService.create('api::order.order', {
             data: {
                 products: allIds,

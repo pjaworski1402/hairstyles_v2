@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
 import CartOffer from "../../components/OfferCards/CartOffer";
+import { API_URL } from "../../utilities/urls";
 import { removeFromCart } from "../../redux/cart.slice";
 import Image from "next/image";
 import arrowRight from "../../static/icons/arrow-next.svg";
@@ -86,8 +87,9 @@ const Cart = () => {
     const getIds = products.map((product) => product.id);
     const productIds = {
       product: { id: getIds },
+      selectedVoucher: selectedVoucher
     };
-    const res = await fetch(`http://dev.hairstyles-gta5.com:1337/api/orders/`, {
+    const res = await fetch(`${API_URL}/api/orders/`, {
       method: "POST",
       body: JSON.stringify(productIds),
       headers: {
@@ -186,7 +188,6 @@ const Cart = () => {
     });
     return matchingProducts;
   };
-  console.log(products, discountedOffers)
   const totalPrice = getTotalPrice()
   return (
     <Layout>
