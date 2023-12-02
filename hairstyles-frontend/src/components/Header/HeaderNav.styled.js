@@ -20,6 +20,9 @@ export const Wrapper = styled.nav`
   padding-bottom: 12px;
   @media ${device.tablet} {
     justify-content: flex-start;
+    .cartMobile{
+      display: none;
+    }
   }
 `;
 

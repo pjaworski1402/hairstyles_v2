@@ -10,6 +10,7 @@ import { Container } from "../../styles/pages/Success.styled"
 import homeIco from "../../static/icons/home.svg"
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../redux/cart.slice";
+import Seo from '../../components/SEO/SEO'
 
 const useOrder = (session_id) => {
     const [order, setOrder] = useState(null)
@@ -51,18 +52,19 @@ export default function Success() {
     }, [dispatch])
     return (
         <Layout>
+            <Seo customTitle={"Success payment"} />
             <Container className='container'>
                 <div className='successIcon'>
-                    <Image src={doneImg} width={50} height={50} />
+                    <Image alt="done" src={doneImg} width={50} height={50} />
                 </div>
                 <h2 className='orderSuccess'>Order placed successfully!</h2>
-                {loading && <p className='orderStatus'>We're confirming your purchase!</p>}
+                {loading && <p className='orderStatus'>We&apos;re confirming your purchase!</p>}
                 {!loading && order && (
                     <>
                         <p className='orderStatus'>Check your email. All files should be waiting for you!</p>
                         <div className='summary'>
                             <div className='summaryRow'>
-                                <div className='summaryTitle'>Date</div> <div className='summaryValue'>{new Date(order?.data?.createdAt).toLocaleDateString()}</div>
+                                <div className='summaryTitle'>Date</div> <div className='summaryValue'>{new Date(order?.data?.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' })}</div>
                             </div>
                             <div className='summaryRow'>
                                 <div className='summaryTitle'>Email</div> <div className='summaryValue'>{order?.data?.email}</div>
@@ -76,7 +78,7 @@ export default function Success() {
                 <Link href={"/"}>
                     <a className="backHome">
                         <div className='backHomeWrapper'>
-                            <Image src={homeIco} width={24} height={24} />
+                            <Image alt="home" src={homeIco} width={24} height={24} />
                             Back to home
                         </div>
                     </a></Link>

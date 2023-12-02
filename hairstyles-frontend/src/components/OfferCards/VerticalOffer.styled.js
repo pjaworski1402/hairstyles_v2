@@ -4,8 +4,17 @@ import { device } from "../../styles/device";
 export const ContainerVertical = styled.div`
   border-radius: 6px;
   border: 1px solid ${({ isInCart }) => (isInCart ? "#3c9f25" : "#bcc1ca")};
-
-    flex-basis: 100%;
+  flex-basis: 100%;
+      .newTag{
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #F3FCF0;
+      color: #41B029;
+      font-size: 12px;
+      border-radius: 6px;
+      padding: 4px 6px;
+    }
   @media ${device.mobileL} {
     max-width: 164px;
     max-width: calc(50% - (32px - (32px / 4)));

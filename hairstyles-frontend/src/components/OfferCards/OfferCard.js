@@ -29,6 +29,12 @@ const OfferCard = ({ product, display = "vertical" }) => {
     e.preventDefault();
     dispatch(removeFromCart(offer));
   };
+  const startDate = new Date(offer.createdAt);
+  const currentDate = new Date();
+  const endDate = new Date(startDate);
+  endDate.setDate(startDate.getDate() + 14);
+  const hasPassed14Days = currentDate > endDate
+
   if (display === "horizontal") {
     return (
       <ContainerHorizontal className="productHorizontal" isInCart={isInCart}>
@@ -42,8 +48,14 @@ const OfferCard = ({ product, display = "vertical" }) => {
                   width={imageData.width}
                   height={imageData.height}
                   unoptimized
+                  alt={imageData.alternativeText}
                 />
               }
+              {!hasPassed14Days && (
+                <div className="newTag">
+                  New
+                </div>
+              )}
             </div>
             <div className="offerWrapper">
               <div className="offerTitle">{offer.title}</div>
@@ -68,13 +80,13 @@ const OfferCard = ({ product, display = "vertical" }) => {
                       className="addedToCartButton"
                       onClick={(e) => handleRemoveFromCart(e)}
                     >
-                      <Image src={done} width={16} height={16} />
+                      <Image alt="done" src={done} width={16} height={16} />
                     </button>
                     <button
                       className="addedToCartButtonDesktop"
                       onClick={(e) => handleRemoveFromCart(e)}
                     >
-                      <Image src={done} width={16} height={16} />
+                      <Image alt="done" src={done} width={16} height={16} />
                       Added to cart
                     </button>
                   </>
@@ -84,13 +96,13 @@ const OfferCard = ({ product, display = "vertical" }) => {
                       className="addToCartButton"
                       onClick={(e) => addToCartButton(e)}
                     >
-                      <Image src={addIco} width={16} height={16} />
+                      <Image alt="add" src={addIco} width={16} height={16} />
                     </button>
                     <button
                       className="addToCartButtonDesktop"
                       onClick={(e) => addToCartButton(e)}
                     >
-                      <Image src={shoppingCartIco} width={16} height={16} />
+                      <Image alt="cart" src={shoppingCartIco} width={16} height={16} />
                       Add to cart
                     </button>
                   </>
@@ -113,7 +125,13 @@ const OfferCard = ({ product, display = "vertical" }) => {
                 width={imageData?.width}
                 height={imageData?.height}
                 unoptimized
+                alt={imageData.alternativeText}
               />
+              {!hasPassed14Days && (
+                <div className="newTag">
+                  New
+                </div>
+              )}
             </div>
             <div className="offerWrapperInfo">
               <div className="offerTitle">{offer.title}</div>
@@ -137,14 +155,14 @@ const OfferCard = ({ product, display = "vertical" }) => {
                     className="removeFromCartButton"
                     onClick={(e) => handleRemoveFromCart(e)}
                   >
-                    <Image src={done} width={16} height={16} />
+                    <Image alt="done" src={done} width={16} height={16} />
                   </button>
                 ) : (
                   <button
                     className="addToCartButton"
                     onClick={(e) => addToCartButton(e)}
                   >
-                    <Image src={addIco} width={16} height={16} />
+                    <Image alt="add" src={addIco} width={16} height={16} />
                   </button>
                 )}
               </div>

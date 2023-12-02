@@ -20,7 +20,7 @@ const Refund = () => {
       <h3>Delivery of Goods and Services</h3>
       <p>
         If you do not receive an email to the product up to 5 minutes after
-        purchase. Check all folders in your inbox including "offers" and "spam".
+        purchase. Check all folders in your inbox including &quot;offers&quot; and &quot;spam&quot;.
         If there are no messages in the above-mentioned tabs, you can
         immediately contact{" "}
         <a href="mailto:hairstyles.gta5@gmail.com">hairstyles.gta5@gmail.com</a>{" "}
@@ -52,8 +52,8 @@ const Refund = () => {
         </li>
         <li>
           By contact form -{" "}
-          <a href="https://hairstyles-gta5.com/?overlay=contact">
-            https://hairstyles-gta5.com/?overlay=contact
+          <a href="https://hairstyles-gta5.com/contact">
+            https://hairstyles-gta5.com/contact
           </a>
         </li>
       </ul>

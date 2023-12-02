@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../../pages/_app";
 import { getStrapiMedia } from "../../lib/media";
 
-const Seo = ({ seo }) => {
+const Seo = ({ seo, customTitle, canonical }) => {
   const { global } = useContext(GlobalContext);
   const { defaultSeo, siteName } = global.attributes;
   const seoWithDefaults = {
@@ -13,7 +13,7 @@ const Seo = ({ seo }) => {
   const fullSeo = {
     ...seoWithDefaults,
     // Add title suffix
-    metaTitle: `${siteName} - ${seoWithDefaults.metaTitle}`,
+    metaTitle: siteName !== seoWithDefaults.metaTitle ? `${siteName} - ${seoWithDefaults.metaTitle}` : customTitle ? `${customTitle} - ${siteName}` : siteName,
     // Get full image URL
     shareImage: getStrapiMedia(seoWithDefaults.shareImage),
   };
@@ -24,6 +24,7 @@ const Seo = ({ seo }) => {
         <>
           <title>{fullSeo.metaTitle}</title>
           <meta property="og:title" content={fullSeo.metaTitle} />
+          <meta property="og:site_name" content={fullSeo.metaTitle} />
           <meta name="twitter:title" content={fullSeo.metaTitle} />
         </>
       )}
@@ -42,7 +43,11 @@ const Seo = ({ seo }) => {
         </>
       )}
       {fullSeo.article && <meta property="og:type" content="article" />}
+      {canonical && <link rel="canonical" href={canonical} />}
+      <meta name="author" content="Piotr Jaworski" />
       <meta name="twitter:card" content="summary_large_image" />
+      <meta http-equiv="Content-Language" content="en" />
+      <meta property="og:type" content="website" />
     </Head>
   );
 };

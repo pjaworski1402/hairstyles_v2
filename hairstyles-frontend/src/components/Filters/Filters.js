@@ -15,6 +15,7 @@ const Filters = (props) => {
     const [priceMin, setPriceMin] = useState(1);
     const [priceMax, setPriceMax] = useState(200);
     const router = useRouter();
+    const { query } = router;
     const generateLink = () => {
         let link = "/results?";
         const filtersObject = filters.reduce((acc, filter) => {
@@ -48,12 +49,11 @@ const Filters = (props) => {
         }
     }
     const handleClear = () => {
-        setFilters([]);
+        router.push("/results")
     }
 
     useEffect(() => {
         // Load Defaults
-        const { query } = router;
         // .replace(/\[\"|\"\]/g, '')
         const defaultFilter = []
         Object.entries(query).map(([key, value]) => {
@@ -72,7 +72,7 @@ const Filters = (props) => {
         <div className='header'>
             <div className='title'>Filters</div>
             <button className='closeButton' onClick={() => props.setIsFiltersOpen(false)}>
-                <Image src={closeIco} width={24} height={24} />
+                <Image alt="close" src={closeIco} width={24} height={24} />
             </button>
         </div>
         <button className='clearAll' onClick={handleClear}>Clear all</button>
@@ -82,13 +82,13 @@ const Filters = (props) => {
                 {categories.map((category, i) => (
                     <React.Fragment key={category.attributes.name + i}>
                         <div className='filterSubtitle'>
-                            <Image loader={() => getStrapiMedia(category.attributes.icon)} src={getStrapiMedia(category.attributes.icon)} width={24} height={24} />
+                            <Image alt={category.attributes.icon.data.attributes.alternativeText} loader={() => getStrapiMedia(category.attributes.icon)} src={getStrapiMedia(category.attributes.icon)} width={24} height={24} />
                             {category.attributes.name}
                         </div>
                         <div className='subFilters'>
                             {category.attributes.types.data.map((type, j) => (
                                 type.attributes.name !== "ped" && (
-                                    <div className='filter' key={type.attributes.name + j} style={{ marginLeft: "12px" }}>
+                                    <div className='filter' key={type.attributes.name + j}>
                                         <Checkbox
                                             checked={filters.includes(`type=${type.attributes.name}`)}
                                             onClick={() => handleCheckboxChange(`type=${type.attributes.name}`)}
@@ -165,12 +165,13 @@ const Filters = (props) => {
                             setPriceMin(min);
                             setPriceMax(max);
                         }}
+                        query={query}
                     />
                 </div>
             </div>
             <button className='submitButton' onClick={generateLink}>
                 Submit
-                <Image src={filtersIco} width={20} height={20} />
+                <Image alt="filters" src={filtersIco} width={20} height={20} />
             </button>
         </div>
     </Container>);

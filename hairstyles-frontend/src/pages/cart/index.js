@@ -11,6 +11,7 @@ import { removeFromCart } from "../../redux/cart.slice";
 import Image from "next/image";
 import arrowRight from "../../static/icons/arrow-next.svg";
 import stripeIco from "../../static/images/stripe.png";
+import Seo from "../../components/SEO/SEO";
 // import googlePayIco from "../../static/images/googlePay.png";
 // import linkPayIco from "../../static/images/linkPay.png";
 
@@ -74,6 +75,7 @@ const Cart = () => {
         .catch((err) => console.log(err));
     } else {
       setProducts();
+      setIsLoading(false)
     }
   }, [cart]);
 
@@ -191,6 +193,7 @@ const Cart = () => {
   const totalPrice = getTotalPrice()
   return (
     <Layout>
+      <Seo customTitle={"Contact"} />
       <Container className="container">
         <h1 className="cartTitle">Order summary</h1>
         <div className="productsWrapper">

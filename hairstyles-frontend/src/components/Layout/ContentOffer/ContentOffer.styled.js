@@ -104,6 +104,17 @@ export const Container = styled.div`
       margin-bottom: 12px;
       white-space: pre-wrap;
     }
+    .similar{
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      @media ${device.tablet} {
+        flex-direction: row;
+        flex-wrap:wrap;
+        gap: 24px;
+    }
+    }
   }
   .bottomWrapper {
     @media ${device.tablet} {

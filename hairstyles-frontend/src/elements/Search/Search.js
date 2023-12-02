@@ -6,9 +6,11 @@ import searchIco from "../../static/icons/search.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { MEILISEARCH_URL } from "../../utilities/urls";
+import enterIco from "../../static/icons/enter-button.svg"
 
 const client = new MeiliSearch({
-  host: "http://46.205.221.77:7700",
+  host: MEILISEARCH_URL,
 });
 
 const Search = (props) => {
@@ -34,11 +36,24 @@ const Search = (props) => {
             (value, index, self) =>
               index === self.findIndex((t) => t.type.name === value.type.name)
           );
+          const uniqueTags = [];
+
+          // Przejdź przez każdy produkt
+          hits.forEach(product => {
+            // Przejdź przez każdy tag w produkcie
+            product.tags.forEach(tag => {
+              // Sprawdź, czy tag już istnieje w tablicy uniqueTags
+              if (!uniqueTags.includes(tag.name)) {
+                // Jeśli nie istnieje, dodaj go do tablicy
+                uniqueTags.push(tag.name);
+              }
+            });
+          });
+          console.log(uniqueTags);
           // const titles = hits.map(hit => hit.title);
-          const titles = [];
           types = types.map((type) => type.type.name);
           loaded && setHitnsIsOpen(true);
-          setProducts([...types, ...titles]);
+          setProducts([...types, ...uniqueTags]);
           setLoaded(true);
         });
     } else {
@@ -74,7 +89,7 @@ const Search = (props) => {
   return (
     <Container ref={searchRef} className="searchContainer">
       <Label>
-        <Image src={searchIco} width={16} height={16} />
+        <Image src={searchIco} width={16} height={16} alt="searchIco" />
         <Input
           type="text"
           placeholder="Search..."
@@ -100,6 +115,7 @@ const Search = (props) => {
           </li>
         ))}
       </ul>
+      <Image style={{ cursor: 'pointer' }} src={enterIco} width={16} height={16} alt="enter" onClick={() => handleSearch(search)} />
     </Container>
   );
 };

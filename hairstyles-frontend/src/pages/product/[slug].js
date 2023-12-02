@@ -20,6 +20,7 @@ import { useState } from "react";
 import { addToCart, removeFromCart } from "../../redux/cart.slice";
 import { useEffect } from "react";
 import { message } from 'antd';
+import Seo from "../../components/SEO/SEO"
 
 const Product = ({ product }) => {
   const cart = useSelector((state) => state.cart);
@@ -57,9 +58,10 @@ const Product = ({ product }) => {
 
   return (
     <Layout>
+      <Seo customTitle={product.title} />
       <Container className="container">
         <MobileSlider onTouchStart={() => window.scrollTo(0, 0)}>
-          <Slider slides={product.gallery.data} height={320} />
+          <Slider slides={product.gallery.data} height={320} zoom />
         </MobileSlider>
         {/* DESKTOP */}
         <DesktopContentOffer className="container">
@@ -70,7 +72,7 @@ const Product = ({ product }) => {
             </button>
           </div>
           <DesktopSlider>
-            <Slider slides={product.gallery.data} height={470} />
+            <Slider slides={product.gallery.data} height={470} zoom />
           </DesktopSlider>
           <div className="productInfo">
             <div className="title">{product.title}</div>
@@ -97,7 +99,7 @@ const Product = ({ product }) => {
             ) : (
               <div className="bottomWrapper">
                 <button className="addToCartButton" onClick={handleAddToCart}>
-                  <Image src={addToCartIco} width={20} height={20} />
+                  <Image alt="cart" src={addToCartIco} width={20} height={20} />
                   Add to Cart {`($${product.price})`}
                 </button>
               </div>

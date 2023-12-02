@@ -22,6 +22,8 @@ export const Container = styled.div`
     padding: 12px;
     background-color: var(--primary);
     border-radius: 0 0 5px 5px;
+    overflow-y:auto;
+    max-height: 200px;
     &.hidden {
       display: none;
     }

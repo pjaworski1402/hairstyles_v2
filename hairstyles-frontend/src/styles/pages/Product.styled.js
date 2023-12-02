@@ -24,6 +24,12 @@ const sliderStyle = css`
   left: 0;
   transform:rotateY(180deg);
 }
+.slick-dots{
+  display:none!important;
+  @media ${device.tablet} {
+    display:block!important;
+  }
+}
 `
 
 export const Container = styled.div`

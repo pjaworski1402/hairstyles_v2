@@ -6,6 +6,7 @@ import Link from "next/link";
 const CategoryCircle = ({ category }) => {
   const src = getStrapiMedia(category.image);
   const imageData = category.image.data.attributes;
+  console.log(imageData)
   return (
     <Container>
       <Link href={category.url}>
@@ -16,6 +17,7 @@ const CategoryCircle = ({ category }) => {
               loader={() => src}
               width={imageData.width}
               height={imageData.height}
+              alt={imageData.alternativeText}
             />
           </div>
           <div className="title">{category.title}</div>

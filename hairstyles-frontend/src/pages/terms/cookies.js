@@ -40,8 +40,8 @@ const Cookies = () => {
       <p>For the purposes of this Cookies Policy:</p>
       <ul>
         <li>
-          <strong>Company</strong>&nbsp;(referred to as either "the Company",
-          "We", "Us" or "Our" in this Cookies Policy) refers to
+          <strong>Company</strong>&nbsp;(referred to as either &quot;the Company&quot;,
+          &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Cookies Policy) refers to
           hairstyles-gta5.com website.
         </li>
         <li>
@@ -70,7 +70,7 @@ const Cookies = () => {
         <strong>Type of Cookies We Use</strong>
       </h2>
       <p>
-        Cookies can be "Persistent" or "Session" Cookies. Persistent Cookies
+        Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies
         remain on your personal computer or mobile device when You go offline,
         while Session Cookies are deleted as soon as You close your web browser.
       </p>
@@ -149,7 +149,7 @@ const Cookies = () => {
         in your use of the Website and some features may not function properly.
       </p>
       <p>
-        If You'd like to delete Cookies or instruct your web browser to delete
+        If You&apos;d like to delete Cookies or instruct your web browser to delete
         or refuse Cookies, please visit the help pages of your web browser.
       </p>
       <ul>
@@ -181,7 +181,7 @@ const Cookies = () => {
         </li>
       </ul>
       <p>
-        For any other web browser, please visit your web browser's official web
+        For any other web browser, please visit your web browser&apos;s official web
         pages.
       </p>
       <h2>
@@ -199,8 +199,8 @@ const Cookies = () => {
         </li>
         <li>
           By contact form -{" "}
-          <a href="https://hairstyles-gta5.com/?overlay=contact">
-            https://hairstyles-gta5.com/?overlay=contact
+          <a href="https://hairstyles-gta5.com/contact">
+            https://hairstyles-gta5.com/contact
           </a>
         </li>
       </ul>

@@ -4,7 +4,8 @@ import { Container } from "../../styles/pages/Contact.styled";
 import Image from "next/image";
 import discordImg from "../../static/images/discord.svg";
 import mailImg from "../../static/images/mail.svg";
-import facebookImg from "../../static/images/facebook.svg";
+// import facebookImg from "../../static/images/facebook.svg";
+import pinterestImg from "../../static/images/pinterest.svg";
 import youtubeImg from "../../static/images/youtube.svg";
 import instagramImg from "../../static/images/instagram.svg";
 import useAutosizeTextArea from "../../hooks/useAutosizeTextArea";
@@ -12,6 +13,7 @@ import emailjs from "@emailjs/browser";
 import { getCookie, setCookie } from "../../hooks/useCookie";
 import { GlobalContext } from "../_app";
 import { message } from "antd"
+import Seo from "../../components/SEO/SEO";
 
 const Contact = () => {
   const [valueMessage, setValueMessage] = useState("");
@@ -40,7 +42,7 @@ const Contact = () => {
       setIsSending(true);
       emailjs
         .sendForm(
-          "service_l51xvgr",
+          "service_7ied21m",
           "template_a1l9kgu",
           form.current,
           "zMXb78t_2oyf_LsOj"
@@ -54,6 +56,7 @@ const Contact = () => {
             setIsSending(false);
           },
           (error) => {
+            console.log(error)
             setIsSending(false);
           }
         );
@@ -64,6 +67,7 @@ const Contact = () => {
 
   return (
     <Layout>
+      <Seo customTitle={"Contact"} />
       <Container className="container">
         <h1 className="title">Contact</h1>
         <h2 className="subtitle">
@@ -72,19 +76,19 @@ const Contact = () => {
         <p className="text">You can contact us using:</p>
         <div className="mediaWrapper">
           <a href={global.attributes.discordLink} target="_blank" rel="noreferrer">
-            <Image src={discordImg} width={50} height={50} />
+            <Image alt="discord" src={discordImg} width={50} height={50} />
           </a>
           <a href={`mailto:${global.attributes.email}`} target="_blank" rel="noreferrer">
-            <Image src={mailImg} width={50} height={50} />
+            <Image alt={`mail: ${global.attributes.email}`} src={mailImg} width={50} height={50} />
           </a>
           <a href={global.attributes.facebookLink} target="_blank" rel="noreferrer">
-            <Image src={facebookImg} width={50} height={50} />
+            <Image alt="facebook" src={pinterestImg} width={50} height={50} />
           </a>
           <a href={global.attributes.youtubeLink} target="_blank" rel="noreferrer">
-            <Image src={youtubeImg} width={50} height={50} />
+            <Image alt="youtube" src={youtubeImg} width={50} height={50} />
           </a>
           <a href={global.attributes.instagramLink} target="_blank" rel="noreferrer">
-            <Image src={instagramImg} width={50} height={50} />
+            <Image alt="instagram" src={instagramImg} width={50} height={50} />
           </a>
         </div>
         <p className="text2">or</p>
@@ -94,7 +98,7 @@ const Contact = () => {
             <input
               required
               type="email"
-              name="user_email"
+              name="from_name"
               className="input"
               placeholder="Type your e-mail"
             />
@@ -123,7 +127,7 @@ const Contact = () => {
             "Your e-mail has been sent to hairstyles support."
           ) : (
             <button disabled={isSending} className="sendButton">
-              Send
+              {isSending ? "Loading..." : "Send"}
             </button>
           )}
         </form>

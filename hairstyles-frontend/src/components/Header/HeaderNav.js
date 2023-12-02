@@ -21,7 +21,7 @@ import Search from "../../elements/Search/Search";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
+const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps, displayCartMobile }) => {
   const { global, menu, desktopMenu } = useContext(GlobalContext);
   const { logo, siteName } = global.attributes;
   const { menuItems } = menu.attributes;
@@ -48,6 +48,7 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
                 width={35}
                 height={35}
                 unoptimized
+                alt="hairstyles-gta5"
               />
               <SiteName>{siteName}</SiteName>
             </a>
@@ -60,7 +61,7 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
                 key={element.id}
                 className={
                   decodeURIComponent(router.asPath) ==
-                  decodeURIComponent(element.path)
+                    decodeURIComponent(element.path)
                     ? "active"
                     : ""
                 }
@@ -70,8 +71,17 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
             );
           })}
         </DesktopNav>
+        {!displayCartMobile && (
+          <Link href={`/cart`}>
+            <a style={{ marginLeft: "auto", marginRight: "16px" }} className="cartMobile">
+              <div className="cartLength">
+                <Image alt="cartIco" src={shoppingCart} height={24} width={24} />
+              </div>
+            </a>
+          </Link>
+        )}
         <MenuButton onClick={handleClickMenu}>
-          <Image src={isMenuOpen ? closeIco : menuIco} />
+          <Image alt="menuIco" src={isMenuOpen ? closeIco : menuIco} />
         </MenuButton>
         <DesktopRight>
           <SearchWrapper>
@@ -85,7 +95,7 @@ const HeaderNav = ({ setMenuOpen, isMenuOpen, pageProps }) => {
           <Link href={`/cart`}>
             <a>
               <div className="cartLength">
-                <Image src={shoppingCart} height={24} width={24} />
+                <Image src={shoppingCart} height={24} width={24} alt="cart" />
                 {lengthCart ? (
                   <div className="cartLengthValue">{lengthCart}</div>
                 ) : null}

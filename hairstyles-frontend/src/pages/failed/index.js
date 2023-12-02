@@ -8,6 +8,7 @@ import { API_URL } from '../../utilities/urls'
 import failedImg from "../../static/icons/failed.svg"
 import { Container } from "../../styles/pages/Failed.styled"
 import homeIco from "../../static/icons/home.svg"
+import Seo from '../../components/SEO/SEO'
 
 const useOrder = (session_id) => {
     const [order, setOrder] = useState(null)
@@ -45,9 +46,10 @@ export default function Failed() {
     const { order, loading } = useOrder(session_id)
     return (
         <Layout>
+            <Seo customTitle={"Failed payment"} />
             <Container className='container'>
                 <div className='failedIcon'>
-                    <Image src={failedImg} width={50} height={50} />
+                    <Image alt="failed" src={failedImg} width={50} height={50} />
                 </div>
                 <h2 className='orderFailed'>Payment Failed</h2>
                 {loading && <p className='orderStatus'>Loading...</p>}

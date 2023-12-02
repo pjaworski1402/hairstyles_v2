@@ -6,7 +6,14 @@ export const Container = styled.div`
     display: none;
     @media ${device.tablet} {
       display: block;
-      margin-top: 64px;
+      margin-top: 24px;
+      .lastUpdateDate{
+        font-size: 14px; 
+        font-weight: 300; 
+        line-height: 22px; 
+        color: #9095A0FF;
+        margin-bottom:24px;
+      }
       .searchContainer {
         width: 100%;
       }

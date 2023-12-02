@@ -6,7 +6,8 @@ import { GlobalContext } from "../../pages/_app";
 import { Container } from "./Footer.styled";
 import discordImg from "../../static/images/discord.svg";
 import mailImg from "../../static/images/mail.svg";
-import facebookImg from "../../static/images/facebook.svg";
+// import facebookImg from "../../static/images/facebook.svg";
+import pinterestImg from "../../static/images/pinterest.svg";
 import youtubeImg from "../../static/images/youtube.svg";
 import instagramImg from "../../static/images/instagram.svg";
 
@@ -25,6 +26,7 @@ const Footer = () => {
                 width={35}
                 height={35}
                 unoptimized
+                alt="hairstyles-gta5"
               />
               <div className="logoText">{siteName}</div>
             </a>
@@ -80,19 +82,19 @@ const Footer = () => {
           © 2020-2023 hairstyles-gta5.com • Site created by Piotr Jaworski
           <div className="contact">
             <a target="_blank" href={global.attributes.discordLink} rel="noreferrer">
-              <Image src={discordImg} width={20} height={20} />
+              <Image alt="discord" src={discordImg} width={20} height={20} />
             </a>
             <a type="email" href={`mailto:${global.attributes.email}`}>
-              <Image src={mailImg} width={20} height={20} />
+              <Image alt={`mail: ${global.attributes.email}`} src={mailImg} width={20} height={20} />
             </a>
             <a target="_blank" href={global.attributes.facebookLink} rel="noreferrer">
-              <Image src={facebookImg} width={20} height={20} />
+              <Image alt="facebook" src={pinterestImg} width={20} height={20} />
             </a>
             <a target="_blank" href={global.attributes.youtubeLink} rel="noreferrer">
-              <Image src={youtubeImg} width={20} height={20} />
+              <Image alt="youtube" src={youtubeImg} width={20} height={20} />
             </a>
             <a target="_blank" href={global.attributes.instagramLink} rel="noreferrer">
-              <Image src={instagramImg} width={20} height={20} />
+              <Image alt="instagram" src={instagramImg} width={20} height={20} />
             </a>
           </div>
         </div>

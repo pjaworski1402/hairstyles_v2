@@ -17,9 +17,11 @@ import paginationIco from "../../static/icons/pagination.svg";
 import Image from "next/image";
 import OfferCard from "../../components/OfferCards/OfferCard";
 import CustomDropdown from "../../elements/Inputs/Dropdown";
+import { MEILISEARCH_URL } from "../../utilities/urls";
+import Seo from "../../components/SEO/SEO";
 
 const client = new MeiliSearch({
-  host: "http://46.205.221.77:7700",
+  host: MEILISEARCH_URL,
 });
 // import Seo from "../components/SEO/SEO";
 
@@ -115,8 +117,9 @@ export default function Results(props) {
     if (router.query.search) {
       client
         .index("product")
-        .search(router.query.search)
+        .search(router.query.search, { limit: 100 })
         .then((results) => {
+          console.log(results)
           const { hits } = results;
           hits.forEach((hit) => slugSearch.push(hit.slug));
           fetchProducts();
@@ -127,7 +130,8 @@ export default function Results(props) {
   }, [router.query, sorting]);
 
   return (
-    <Layout>
+    <Layout displayCartMobile>
+      <Seo customTitle={"Search"} canonical="/results" />
       <Container>
         <DesktopSlider>
           <Slider
@@ -154,7 +158,7 @@ export default function Results(props) {
                   </div>
                   <div className="resultsSortWrapper">
                     <div className="resultsSortText">Sort by</div>
-                    <CustomDropdown options={options} defaultValue={options[2]} onSelect={(e) => { setSorting(e.value); setProducts([]); }} />
+                    <CustomDropdown options={options} defaultValue={options[2]} onSelect={(e) => { setSorting(e.value); }} />
                   </div>
                 </div>
                 <div className="offerWrapper">
@@ -179,7 +183,7 @@ export default function Results(props) {
                       <a>
                         <Image
                           src={paginationIco}
-                          alt=""
+                          alt="pagination"
                           width={16}
                           height={16}
                         />
@@ -247,7 +251,7 @@ export default function Results(props) {
                       <a>
                         <Image
                           src={paginationIco}
-                          alt=""
+                          alt="pagination"
                           width={16}
                           height={16}
                           style={{ transform: "rotate(180deg)" }}

@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps, num }) {
           },
         },
       }, {}, true);
-      setWebsiteInfo(response.data);
+      setWebsiteInfo(response?.data);
     };
 
     const fetchMenu = async () => {

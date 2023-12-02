@@ -3,6 +3,16 @@ import { device } from "../../styles/device";
 
 export const ContainerHorizontal = styled.div`
   border-bottom: 1px solid #bcc1ca;
+  .newTag{
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: #F3FCF0;
+      color: #41B029;
+      font-size: 12px;
+      border-radius: 6px;
+      padding: 4px 6px;
+    }
   :last-of-type {
     border-bottom: none;
     @media ${device.tablet} {
@@ -18,7 +28,7 @@ export const ContainerHorizontal = styled.div`
     }
   }
   width: 100%;
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
   a {
     display: flex;
     gap: 24px;

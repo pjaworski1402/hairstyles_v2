@@ -4,6 +4,10 @@ import Image from "next/image";
 import OfferAttributes from "../../OfferAttributes/OfferAttributes";
 import { addToCart, removeFromCart } from "../../../redux/cart.slice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
+import { fetchAPI } from "../../../lib/api";
+import OfferCard from "../../OfferCards/OfferCard";
 
 export const tabs = {
   description: "DESCRIPTION",
@@ -17,6 +21,7 @@ const MobileContentOffer = ({
   currentTab,
   isInCart,
 }) => {
+  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
@@ -26,6 +31,48 @@ const MobileContentOffer = ({
   const handleRemoveFromCart = () => {
     dispatch(removeFromCart(product));
   };
+  console.log(products)
+  useEffect(() => {
+    const fetchProducts = () => {
+      fetchAPI(
+        "/products",
+        {
+          filters: {
+            type: {
+              id: { $eq: product.type.data.id },
+            },
+          },
+          populate: {
+            type: {
+              populate: "*",
+            },
+            gender: {
+              populate: "*",
+            },
+            gallery: {
+              populate: "*",
+            },
+            tags: {
+              populate: "*",
+            },
+            character: {
+              populate: "*",
+            },
+          },
+          pagination: {
+            limit: 9,
+          },
+          sort: "createdAt:DESC",
+        },
+        {},
+        true
+      ).then((res) => {
+        console.log(res)
+        setProducts(res);
+      }).catch(err => console.log(err));
+    };
+    fetchProducts()
+  }, [product.type.data.id])
   return (
     <Container className="container">
       <div className="productHeader">
@@ -80,6 +127,21 @@ const MobileContentOffer = ({
         {tabs.review === currentTab && (
           <div className="review">Coming soon...</div>
         )}
+        {tabs.similar === currentTab && (
+          <div className="similar">
+            {products?.data?.map((productApi, index) => {
+              console.log(productApi, product)
+              if (index != 9 && productApi.attributes.slug !== product.slug) {
+                return (
+                  <OfferCard
+                    key={`hairstyles_${productApi.id}`}
+                    product={productApi}
+                  />
+                );
+              }
+            })}
+          </div>
+        )}
       </main>
       <div className="bottomWrapper">
         {isInCart ? (
@@ -88,7 +150,7 @@ const MobileContentOffer = ({
           </button>
         ) : (
           <button className="addToCartButton" onClick={handleAddToCart}>
-            <Image src={addToCartIco} width={20} height={20} />
+            <Image alt="cart" src={addToCartIco} width={20} height={20} />
             Add to Cart {`($${product.price})`}
           </button>
         )}

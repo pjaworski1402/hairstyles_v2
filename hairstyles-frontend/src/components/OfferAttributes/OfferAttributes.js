@@ -14,7 +14,7 @@ const OfferAttributes = ({ product }) => {
       <div className="attribute">
         <div className="attributeTitle">Category</div>
         <div className="attributeWrapper">
-          <Image src={categoryImg} width={24} height={24}
+          <Image alt="category" src={categoryImg} width={24} height={24}
             loader={() => categoryImg}
           />
           {product?.type?.data?.attributes?.category?.data?.attributes?.name}
@@ -23,28 +23,28 @@ const OfferAttributes = ({ product }) => {
       <div className="attribute">
         <div className="attributeTitle">Gender</div>
         <div className="attributeWrapper">
-          <Image src={genderIco} width={24} height={24} />
+          <Image alt="gender" src={genderIco} width={24} height={24} />
           {product.gender.data.attributes.name}
         </div>
       </div>
       <div className="attribute">
         <div className="attributeTitle">Type</div>
         <div className="attributeWrapper">
-          <Image src={typeIco} width={24} height={24} />
+          <Image alt="type" src={typeIco} width={24} height={24} />
           {product?.type?.data?.attributes?.name}
         </div>
       </div>
       <div className="attribute">
         <div className="attributeTitle">Color variants</div>
         <div className="attributeWrapper">
-          <Image src={rainbowIco} width={24} height={24} />
+          <Image alt="rainbow" src={rainbowIco} width={24} height={24} />
           {product.color_variants}
         </div>
       </div>
       <div className="attribute">
         <div className="attributeTitle">Character</div>
         <div className="attributeWrapper">
-          <Image src={userGearIco} width={24} height={24} />
+          <Image alt="user gear" src={userGearIco} width={24} height={24} />
           {product.character.data.attributes.name}
         </div>
       </div>

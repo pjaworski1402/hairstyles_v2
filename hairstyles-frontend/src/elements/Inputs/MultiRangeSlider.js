@@ -105,7 +105,7 @@ width: fit-content;
 
 `;
 
-const MultiRangeSlider = ({ min, max, onChange }) => {
+const MultiRangeSlider = ({ min, max, onChange, query }) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(min);
@@ -144,6 +144,31 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
     onChange({ min: minVal, max: maxVal });
   }, [minVal, maxVal, onChange]);
 
+  useEffect(() => {
+    try {
+      const initialPrice = JSON.parse(query.price)
+      setMinVal(initialPrice[0])
+      setMaxVal(initialPrice[1])
+      minValRef.current = initialPrice[0]
+      maxValRef.current = initialPrice[1]
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
+  useEffect(() => {
+    try {
+      if (!query.price) {
+        setMinVal(1)
+        setMaxVal(200)
+        minValRef.current = 1
+        maxValRef.current = 200
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }, [query])
+
   return (
     <Container>
       <input
@@ -176,10 +201,10 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
         <div className="slider__track" />
         <div ref={range} className="slider__range" />
         <div className="slider__left-value">
-          <Image src={dolarIco} width={16} height={16} />
+          <Image alt="dollar" src={dolarIco} width={16} height={16} />
           {minVal}</div>
         <div className="slider__right-value">
-          <Image src={dolarIco} width={16} height={16} />
+          <Image alt="dollar" src={dolarIco} width={16} height={16} />
           {maxVal}</div>
       </div>
     </Container>

@@ -105,6 +105,10 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
       font-size: 16px;
+      transition: 0.2s background-color;
+      :hover{
+        background-color: rgb(13,78,147);
+      }
     }
   }
 `;

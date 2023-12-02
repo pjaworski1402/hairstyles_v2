@@ -14,8 +14,8 @@ const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com', //Your SMTP host
     port: 587, // SMTP port
     auth: {
-        user: 'kowexxxl@gmail.com', // Your email
-        pass: 'quesijpcnghsaqdh' // Your email password
+        user: 'hairstyles.gta5@gmail.com', // Your email
+        pass: 'tear usme frcz bumy' // Your email password
     }
 });
 
@@ -175,7 +175,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
                     }
                 }));
                 const mailOptions = {
-                    from: 'kowexxxl@gmail.com',
+                    from: 'hairstyles.gta5@gmail.com',
                     to: `${session.customer_details.email}`,
                     subject: 'Purchase Confirmation',
                     html: `<p>Thank you for purchasing! Check attachments</p>`,

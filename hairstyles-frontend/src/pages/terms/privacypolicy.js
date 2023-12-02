@@ -55,7 +55,7 @@ const PrivacyPolicy = () => {
         We want to inform you that whenever you visit our Service, we collect
         information that your browser sends to us that is called Log Data. This
         Log Data may include information such as your computer&rsquo;s Internet
-        Protocol ("IP") address, browser version, pages of our Service that you
+        Protocol (&quot;IP&quot;) address, browser version, pages of our Service that you
         visit, the time and date of your visit, the time spent on those pages,
         and other statistics.
       </p>
@@ -69,7 +69,7 @@ const PrivacyPolicy = () => {
         drive.
       </p>
       <p>
-        Our website uses these "cookies" to collection information and to
+        Our website uses these &quot;cookies&quot; to collection information and to
         improve our Service. You have the option to either accept or refuse
         these cookies, and know when a cookie is being sent to your computer. If
         you choose to refuse our cookies, you may not be able to use some
@@ -128,8 +128,8 @@ const PrivacyPolicy = () => {
         </li>
         <li>
           By contact form -{" "}
-          <a href="https://hairstyles-gta5.com/?overlay=contact">
-            https://hairstyles-gta5.com/?overlay=contact
+          <a href="https://hairstyles-gta5.com/contact">
+            https://hairstyles-gta5.com/contact
           </a>
         </li>
       </ul>

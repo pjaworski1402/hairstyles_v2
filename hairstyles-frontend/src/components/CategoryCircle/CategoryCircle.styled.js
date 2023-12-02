@@ -35,26 +35,31 @@ export const Container = styled.div`
     border-radius: 50%;
     border: 1px solid #bcc1ca;
     position: absolute;
-    left: -12px;
-    bottom: -12px;
+    left: -8px;
+    bottom: -6px;
     z-index: -1;
+    @media ${device.tablet} {
+      left: -18px;
+      bottom: -12px;
+    }
   }
   .title {
     position: absolute;
-    bottom: 12px;
+    bottom: 15px;
     font-size: 16px;
     left: 50%;
     transform: translateX(-50%);
     @media ${device.tablet} {
       font-size: 32px;
       font-weight: 600;
+      bottom: 36px;
     }
   }
   .imageWrapper {
     position: absolute;
-    bottom: 32px;
+    bottom: 34px;
     @media ${device.tablet} {
-      bottom: 48px;
+      bottom: 75px;
     }
     span,
     img {

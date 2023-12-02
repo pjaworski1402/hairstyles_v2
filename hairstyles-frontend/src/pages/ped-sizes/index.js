@@ -3,10 +3,12 @@ import { Container } from "../../styles/pages/PedSizes.styled"
 import pedSizes from "../../static/images/pedSizes.png"
 import Image from "next/image";
 import Layout from '../../components/Layout/Layout';
+import Seo from '../../components/SEO/SEO';
 
 const PedSizes = () => {
     return (
         <Layout>
+            <Seo customTitle={"Ped sizes"} />
             <Container className="container">
                 <h1 className='title'>Ped sizes</h1>
                 <div className='description'>
@@ -14,7 +16,7 @@ const PedSizes = () => {
                     <p>Each peds is selected # according to the size. Please choose the right size for you.</p>
                     <p className='warning'><span className='red'>Warning!</span> After purchase, you cannot exchange the model for a larger or smaller one. Please make your purchase wisely.</p>
                 </div>
-                <Image src={pedSizes} width={1613} height={1171} />
+                <Image alt="ped sizes" src={pedSizes} width={1613} height={1171} />
             </Container>
         </Layout>);
 }

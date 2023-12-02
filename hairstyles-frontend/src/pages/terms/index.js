@@ -17,14 +17,14 @@ const TermsAndConditions = () => {
       <ul>
         <li>
           <strong>Affiliate</strong>means an entity that controls, is controlled
-          by or is under common control with a party, where "control" means
+          by or is under common control with a party, where &quot;control&quot; means
           ownership of 50% or more of the shares, equity interest or other
           securities entitled to vote for election of directors or other
           managing authority.
         </li>
         <li>
-          <strong>Company</strong>(referred to as either "the Company", "We",
-          "Us" or "Our" in this Agreement) refers to hairstyles-gta5.com.
+          <strong>Company</strong>(referred to as either &quot;the Company&quot;, &quot;We&quot;,
+          &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to hairstyles-gta5.com.
         </li>
         <li>
           <strong>Device</strong>&nbsp;means any device that can access the
@@ -34,7 +34,7 @@ const TermsAndConditions = () => {
           <strong>Service</strong>&nbsp;refers to the Website.
         </li>
         <li>
-          <strong>Terms and Conditions</strong>(also referred as "Terms") mean
+          <strong>Terms and Conditions</strong>(also referred as &quot;Terms&quot;) mean
           these Terms and Conditions that form the entire agreement between You
           and the Company regarding the use of the Service.&nbsp;
         </li>
@@ -115,13 +115,13 @@ const TermsAndConditions = () => {
 
       <p>
         All payments through hairstyles-gta5.com are handled by payment portal
-        PayPal
+        Stripe
       </p>
       <p>
         When you have finished shopping and choose to proceed to check out, you
         will be asked to complete your payment. Once you select your preferred
         payment method, you will be redirected to the safe and secure payment
-        portal&nbsp;PayPal and after completing payment you will again be
+        portal&nbsp;Stripe and after completing payment you will again be
         redirected to hairstyles-gta5.com
       </p>
 
@@ -130,7 +130,7 @@ const TermsAndConditions = () => {
       </h3>
 
       <p>
-        When selecting a product from the "peds" tab, be careful when using it.
+        When selecting a product from the &quot;peds&quot; tab, be careful when using it.
         Do not involve violence or other behaviors that deviate from the
         culturally established norm, including in sexual content.
       </p>
@@ -157,7 +157,7 @@ const TermsAndConditions = () => {
         of the Company and any of its suppliers under any provision of this
         Terms and Your exclusive remedy for all of the foregoing shall be
         limited to the amount actually paid by You through the Service or 100
-        USD if You haven't purchased anything through the Service.
+        USD if You haven&apos;t purchased anything through the Service.
       </p>
       <p>
         To the maximum extent permitted by applicable law, in no event shall the
@@ -176,14 +176,14 @@ const TermsAndConditions = () => {
         Some states do not allow the exclusion of implied warranties or
         limitation of liability for incidental or consequential damages, which
         means that some of the above limitations may not apply. In these states,
-        each party's liability will be limited to the greatest extent permitted
+        each party&apos;s liability will be limited to the greatest extent permitted
         by law.
       </p>
       <h3>
-        <strong>8. "AS IS" and "AS AVAILABLE" Disclaimer</strong>
+        <strong>8. &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; Disclaimer</strong>
       </h3>
       <p>
-        The Service is provided to You "AS IS" and "AS AVAILABLE" and with all
+        The Service is provided to You &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; and with all
         faults and defects without warranty of any kind. To the maximum extent
         permitted under applicable law, the Company, on its own behalf and on
         behalf of its Affiliates and its and their respective licensors and
@@ -202,7 +202,7 @@ const TermsAndConditions = () => {
       </p>
       <p>
         Without limiting the foregoing, neither the Company nor any of the
-        company's provider makes any representation or warranty of any kind,
+        company&apos;s provider makes any representation or warranty of any kind,
         express or implied:
       </p>
       <ul>
@@ -253,7 +253,7 @@ const TermsAndConditions = () => {
       <p>
         Except as provided herein, the failure to exercise a right or to require
         performance of an obligation under these Terms shall not effect a
-        party's ability to exercise such right or require such performance at
+        party&apos;s ability to exercise such right or require such performance at
         any time thereafter nor shall the waiver of a breach constitute a waiver
         of any subsequent breach.
       </p>
@@ -301,8 +301,8 @@ const TermsAndConditions = () => {
         </li>
         <li>
           By contact form -&nbsp;
-          <a href="https://hairstyles-gta5.com/?overlay=contact">
-            https://hairstyles-gta5.com/?overlay=contact
+          <a href="https://hairstyles-gta5.com/contact">
+            https://hairstyles-gta5.com/contact
           </a>
         </li>
       </ul>

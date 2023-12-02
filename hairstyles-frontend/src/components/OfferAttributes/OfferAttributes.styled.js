@@ -15,7 +15,7 @@ export const Container = styled.div`
             flex-basis: calc(50% - 12px);
         }
         .attributeTitle{
-
+            margin-bottom: 4px;
         }
         .attributeWrapper{
             display: flex;

@@ -16,22 +16,26 @@ import arrowRightIco from "../static/icons/arrowRight.svg";
 import OfferCard from "../components/OfferCards/OfferCard";
 import Search from "../elements/Search/Search";
 
-// import Seo from "../components/SEO/SEO";
+import Seo from "../components/SEO/SEO";
 
 export default function Home(props) {
   return (
-    <Layout>
+    <Layout displayCartMobile>
+      <Seo />
       <Container>
         <DesktopSlider>
           <Slider
             slides={props.slides.desktop.attributes.slider}
-            height={500}
+            height={628}
           />
         </DesktopSlider>
         <MobileSlider>
-          <Slider slides={props.slides.mobile.attributes.slider} height={128} />
+          <Slider slides={props.slides.mobile.attributes.slider} height={96} />
         </MobileSlider>
         <div className="container searchWrapper">
+          <div className="lastUpdateDate">
+            Last update: {new Date(props.products.last[0].attributes.publishedAt).toLocaleDateString("en-US", { day: '2-digit', month: '2-digit', year: 'numeric' })}
+          </div>
           <Search />
         </div>
         <Wrapper>

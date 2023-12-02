@@ -16,6 +16,7 @@ const CartOffer = ({ offer, removeProduct, discount }) => {
           width={imageData.width}
           height={imageData.height}
           unoptimized
+          alt={imageData.alternativeText}
         />
       </div>
       <div className="info">
@@ -46,7 +47,7 @@ const CartOffer = ({ offer, removeProduct, discount }) => {
 
         </div>
         <button onClick={() => removeProduct(offer)}>
-          <Image src={trash} width={24} height={24} />
+          <Image alt="trash" src={trash} width={24} height={24} />
         </button>
         <div className="quantity">x1</div>
       </div>
