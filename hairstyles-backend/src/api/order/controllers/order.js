@@ -1,9 +1,11 @@
 'use strict';
 const stripe = require('stripe')("sk_test_51M48txJbvSFyUq8IptqbUiV6aVg4PIJjrt1TmFvzjP0fKsq3rNu28YvjkVvPQ9xWRcXF4aUzACZSMHTVJzjFQiVz00dTcmEqq2")
+// const stripe = require('stripe')("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")
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const fromDecimalToInt = (number) => parseInt(number * 100)
-
+const purchase = require("../../../templates/email/purchase")
+const request = require('request');
 /**
  * order controller
  */
@@ -143,6 +145,8 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
                 total: totalPrice,
                 status: 'unpaid',
                 checkout_session: session.id,
+                downloads: 0,
+                promo_code: realVoucher[0]?.id
             },
         });
 
@@ -157,29 +161,53 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             //Update order
             const getOrderId = await strapi.entityService.findMany('api::order.order', {
                 filters: { checkout_session },
-                populate: { products: true },
+                populate: {
+                    products: {
+                        populate: ['gallery', "type", "character", "gender", "color_variants"],
+                    },
+                    promo_code: true
+                },
+            });
+            const products = getOrderId.map(order => order.products)
+            const slugs = products.map(product => product.map(({ slug }) => slug)).flat()
+            // Wrap the asynchronous operation in a promise
+            const getLinkPromise = new Promise((resolve, reject) => {
+                const options = {
+                    'method': 'GET',
+                    'url': `http://localhost:2000/download?files=[${slugs.map((slug) => `"${slug}.zip"`)}]`,
+                    'headers': {}
+                };
+
+                request(options, function (error, response) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(response.body);
+                    }
+                });
             });
 
+            // Wait for the promise to resolve
+            const linkToDownload = await getLinkPromise;
             if (getOrderId[0].status !== "paid") {
-                const products = getOrderId.map(order => order.products)
-                const slugs = products.map(product => product.map(({ slug }) => slug)).flat()
-                const attachments = await Promise.all(slugs.map(async (slug) => {
-                    try {
-                        const file = await fs.promises.readFile(`/home/pjaworski/apps/hairstyles/hairstyles-backend/private/${slug}.zip`)
-                        return {
-                            filename: `${slug}.zip`,
-                            content: file
-                        }
-                    } catch (err) {
-                        console.log(err);
-                    }
-                }));
+                // const attachments = await Promise.all(slugs.map(async (slug) => {
+                //     try {
+                //         const file = await fs.promises.readFile(`/home/pjaworski/apps/hairstyles/hairstyles-backend/private/${slug}.zip`)
+                //         return {
+                //             filename: `${slug}.zip`,
+                //             content: file
+                //         }
+                //     } catch (err) {
+                //         console.log(err);
+                //     }
+                // }));
+
                 const mailOptions = {
                     from: 'hairstyles.gta5@gmail.com',
                     to: `${session.customer_details.email}`,
                     subject: 'Purchase Confirmation',
-                    html: `<p>Thank you for purchasing! Check attachments</p>`,
-                    attachments: attachments
+                    html: purchase(getOrderId[0].createdAt, getOrderId[0].checkout_session, getOrderId[0].total, getOrderId[0].products),
+                    // attachments: attachments
                 };
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
@@ -193,11 +221,15 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             const newOrder = await strapi.entityService.update('api::order.order', getOrderId[0].id, {
                 data: {
                     status: 'paid',
-                    email: session.customer_details.email
+                    email: session.customer_details.email,
+                    downloads: getOrderId[0].downloads !== null ? getOrderId[0].downloads + 1 : 0
                 },
             });
             return ctx.send({
-                data: newOrder
+                data: newOrder,
+                linkToDownload: getOrderId[0].isBlocked !== true ? linkToDownload : "blocked",
+                items: getOrderId[0].products,
+                promo_code: getOrderId[0]?.promo_code
             }, 200);
 
         } else {

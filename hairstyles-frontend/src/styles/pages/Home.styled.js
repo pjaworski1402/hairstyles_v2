@@ -45,7 +45,7 @@ export const Categories = styled.div`
   h3 {
     font-size: 16px;
     color: var(--font);
-    margin-bottom: 12px;
+    margin-bottom: 32px;
     @media ${device.tablet} {
       font-size: 54px;
       margin-bottom: 48px;
@@ -55,8 +55,11 @@ export const Categories = styled.div`
   .categoryWrapper {
     display: flex;
     justify-content: space-between;
-    gap: 32px;
     flex-wrap: wrap;
+    gap: 48px;
+    @media ${device.tablet} {
+      gap: 32px;
+    }
   }
 `;
 

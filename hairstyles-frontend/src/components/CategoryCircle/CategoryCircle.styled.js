@@ -50,6 +50,16 @@ export const Container = styled.div`
     left: 50%;
     transform: translateX(-50%);
     @media ${device.tablet} {
+      font-size: 20px;
+      font-weight: 500;
+      bottom: 20px;
+    }
+    @media ${device.laptop} {
+      font-size: 24px;
+      font-weight: 600;
+      bottom: 26px;
+    }
+    @media ${device.laptopL} {
       font-size: 32px;
       font-weight: 600;
       bottom: 36px;
@@ -59,10 +69,17 @@ export const Container = styled.div`
     position: absolute;
     bottom: 34px;
     @media ${device.tablet} {
+      bottom: 35px;
+    }
+    @media ${device.laptop} {
+      bottom: 45px;
+    }
+    @media ${device.laptopL} {
       bottom: 75px;
     }
     span,
     img {
+      aspect-ratio:1/1;
     }
   }
 `;

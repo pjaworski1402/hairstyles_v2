@@ -14,6 +14,9 @@ export const Container = styled.div`
   .slick-prev,
   .slick-next {
     z-index: 1;
+    :before{
+      color:gray!important;
+    }
   }
   .slick-next {
     right: 15px;

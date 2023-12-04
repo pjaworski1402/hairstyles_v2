@@ -44,6 +44,8 @@ const settings = {
   slidesToScroll: 1,
   nextArrow: <ArrowNext />,
   prevArrow: <ArrowPrev />,
+  autoplay: true,
+  autoplaySpeed: 5000
 };
 
 const SliderComp = ({ slides, height, zoom }) => {

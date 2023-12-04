@@ -1,6 +1,15 @@
-import styled from 'styled-components';
 import { device } from "../../styles/device"
+import styled, { keyframes } from 'styled-components';
 
+// Definicja animacji obrotu
+const rotate360 = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 export const Container = styled.div`
     margin-top: 64px;
     display: flex;
@@ -8,6 +17,9 @@ export const Container = styled.div`
     flex-direction: column;
     @media ${device.tablet} {
         margin-top: 32px;
+    }
+    .loadingIco{
+animation: ${rotate360} 2s linear infinite;
     }
     .successIcon {
         background: #17A948;
@@ -82,6 +94,12 @@ export const Container = styled.div`
                 }
             }
         }
+        .itemsRow{
+            display: flex;
+            flex-direction:column;
+            justify-content:flex-start;
+            align-items:flex-start;
+        }
     }
     .backHome{
         background-color: var(--contrast);
@@ -100,5 +118,42 @@ export const Container = styled.div`
             gap: 8px;
             justify-content: center;
         }
+    }
+    .itemList{
+        width: 100%;
+        display:flex;
+        flex-direction: column;
+        gap:16px;
+        .offerWrapper{
+            display: flex;
+            border-radius: 6px;
+            border-width: 1px; 
+            border-color: #9095A0;
+            border-style: solid;
+            width: 100%;
+            span, img{
+                object-fit:cover;
+                border-radius: 6px 0 0 6px;
+            }
+            .offerInfo{
+                display:flex;
+                flex-direction:column;
+                margin-left: 16px;
+                .offerTitle{
+                    font-size: 16px; 
+                    font-weight: 700; 
+                    color: #171A1F;
+                    margin-top:20px;
+                }
+                .offerTags{
+                    font-size: 14px; 
+                    font-weight: 400; 
+                    color: #9095A0;
+                    margin-top:3px;
+                    text-transform:capitalize;
+                }
+            }
+        }
+
     }
 `;

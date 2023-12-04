@@ -18,6 +18,9 @@ import Seo from "../../components/SEO/SEO";
 const stripePromise = loadStripe(
   `pk_test_51M48txJbvSFyUq8IKOyqyNuANXMw7O22W0jYLUvraG6MSNHqjrTfJ2wp89CFeSYpDFQwoFdt52o1LmRtdmvhvJd400NIHoixad`
 );
+// const stripePromise = loadStripe(
+//   `pk_live_51ODXBuJY4hX5zC5ZczI7GpOB3BUHtKfR2S8XMpbCD0bRgt2PxDDO7tl7zLRSt5x3Wab9RZqbAq9A5lB3tqmkDqdT002ircl2Fp`
+// );
 
 const voucherMess = {
   correct: ["Voucher activated!", true],

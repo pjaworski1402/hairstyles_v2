@@ -2,10 +2,10 @@ import qs from "qs";
 
 export function getStrapiURL(path = "", isNotLocal = false) {
   if (isNotLocal) {
-    return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://dev.hairstyles-gta5.com:1337"
+    return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://cms.hairstyles-gta5.com"
       }${path}`;
   } else {
-    return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://127.0.0.1:1337"
+    return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://127.0.0.1:1338"
       }${path}`;
   }
 }
