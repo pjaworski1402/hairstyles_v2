@@ -1,6 +1,6 @@
 'use strict';
-const stripe = require('stripe')("sk_test_51M48txJbvSFyUq8IptqbUiV6aVg4PIJjrt1TmFvzjP0fKsq3rNu28YvjkVvPQ9xWRcXF4aUzACZSMHTVJzjFQiVz00dTcmEqq2")
-// const stripe = require('stripe')("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")
+const stripe = require('stripe')("sk_test_")
+// const stripe = require('stripe')("sk_live_")
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const fromDecimalToInt = (number) => parseInt(number * 100)
@@ -16,8 +16,8 @@ const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com', //Your SMTP host
     port: 587, // SMTP port
     auth: {
-        user: 'hairstyles.gta5@gmail.com', // Your email
-        pass: 'tear usme frcz bumy' // Your email password
+        user: '', // Your email
+        pass: '' // Your email password
     }
 });
 
